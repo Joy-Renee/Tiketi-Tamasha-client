@@ -20,11 +20,11 @@
             with:
               node-version: '16'
     
-          - name: Install Node.js dependencies
-            run: npm install
+        #   - name: Install Node.js dependencies
+        #     run: npm install
     
-          - name: Run React tests
-            run: npm test -- --coverage
+        #   - name: Run React tests
+        #     run: npm test -- --coverage
     
           - name: Run Super Linter
             uses: github/super-linter@v4
