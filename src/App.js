@@ -5,7 +5,8 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import LoginPage from './Components/LoginPage'
 import LoginForm from './Components/LoginForm'
 import Register from './Components/Register'
-
+import {OrganizersPage, Card} from './Components/OrganizersPage'
+import VenuesByIdPage from './Components/VenuesByIdPage'
 
 function App () {
   return (
@@ -17,6 +18,12 @@ function App () {
             <Route path="/" element={<LoginPage/>} />
             <Route path="/login" element={<LoginForm/>} />
             <Route path="/register" element={<Register/>} />
+            <Route path='/venues' element={
+              <>
+                <OrganizersPage/>
+                <Card/>
+              </> } />
+            <Route path='/:venue/:id' element={<VenuesByIdPage/>}/>
           </Routes>
         </BrowserRouter>
       </div>
