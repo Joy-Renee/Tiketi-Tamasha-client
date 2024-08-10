@@ -18,12 +18,12 @@ function App () {
             <Route path="/" element={<LoginPage/>} />
             <Route path="/login" element={<LoginForm/>} />
             <Route path="/register" element={<Register/>} />
-            <Route path='/events' element={
+            <Route path='/venues' element={
               <>
                 <OrganizersPage/>
                 <Card/>
               </> } />
-            <Route path='/:event/:id' element={<VenuesByIdPage/>}/>
+            <Route path='/:venue/:id' element={<VenuesByIdPage/>}/>
           </Routes>
         </BrowserRouter>
       </div>

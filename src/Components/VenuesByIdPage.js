@@ -4,36 +4,36 @@ import '../Assets/VenuesPage.css';
 
 const VenuesByIdPage = () => {
     const { id } = useParams();  // Get the ID from the route parameters
-    const [event, setEvent] = useState(null);
+    const [venue, setVenue] = useState(null);
 
     useEffect(() => {
-        // Fetch data for the specific event using the ID
-        fetch(`https://tiketi-tamasha-server.onrender.com/event/${id}`)
+        // Fetch data for the specific venue using the ID
+        fetch(`https://tiketi-tamasha-server.onrender.com/venues/${id}`)
             .then(response => response.json())
-            .then(data => setEvent(data))
+            .then(data => setVenue(data))
             .catch(error => console.error('Error fetching data:', error));
     }, [id]);
 
-    if (!event) {
+    if (!venue) {
         return <p>Loading...</p>;
     }
 
     return (
         <div className="card-container">
             <div className="card">
-                <img src={event.image} alt={event.event_name} className="card-image" />
-                <h2 className="card-title">{event.event_name}</h2>
-                <p className="card-description">{event.description}</p>
-                <p className="card-date">Date: {event.event_date}</p>
-                <p className="card-time">Time: {event.event_time}</p>
-                <p className="card-capacity">Capacity: {event.capacity}</p>
-                {/* <p className="card-title">{event.name}</p>
-                <p className="card-title">{event.address}</p> */}
-                <button className="rent-button" onClick={() => alert('Button Clicked!')}>
-                    RENT
-                </button>
-                <Link to="/events"> <button className="rent-button">  BACK </button> </Link>
-                
+                <img src={venue.image} alt={venue.name} className="card-image" />
+                <h2 className="card-title">{venue.name}</h2>
+                <p className="card-capacity">Capacity: {venue.capacity}</p>
+                <p className="card-address">Address: {venue.address}</p> 
+                <div className="button-container">
+                    <Link to="/somewhere">
+                        <button className="rent-button">Rent</button>
+                    </Link>
+                    <Link to="/venues">
+                        <button className="back-button">Back</button>
+                    </Link>
+                </div>
+
             </div>
         </div>
     );

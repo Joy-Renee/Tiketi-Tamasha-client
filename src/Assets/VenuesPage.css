@@ -59,7 +59,7 @@ body {
 }
 
 /* Additional event details */
-.card-date, .card-time, .card-capacity, .card-title {
+.card-date, .card-time, .card-capacity, .card-address, .card-title {
   font-size: 1rem;
   margin: 5px 0;
   color: #cccccc; /* Slightly dimmed text for details */
@@ -73,24 +73,47 @@ body {
   margin-top: 10px;
 }
 
-.rent-button-link {
-  text-decoration: none; /* Remove underline */
-}
-
+/* Rent Button */
 .rent-button {
-  background-color: #b30000; /* Red background */
-  color: #fff; /* White text */
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-  display: block;
-  text-align: center;
+  background: transparent; /* No background */
+  color: #b30000; /* Red text */
+  font-size: 1rem; /* Adjust text size */
+  text-decoration: none; /* Remove underline */
+  padding: 8px 16px; /* Padding for spacing */
+  border: 2px solid #b30000; /* Red border */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s, color 0.3s, transform 0.3s; /* Smooth transitions */
+  display: inline-block; /* Ensure it fits content */
+  text-align: center; /* Center align text */
 }
 
 .rent-button:hover {
-  background-color: #8b0000; /* Darker red on hover */
+  background-color: #b30000; /* Red background on hover */
+  color: #fff; /* White text on hover */
   transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Back Button */
+.back-button {
+  background: transparent; /* No background */
+  color: #b30000; /* Red text */
+  font-size: 1rem; /* Adjust text size */
+  text-decoration: none; /* Remove underline */
+  padding: 8px 16px; /* Padding for spacing */
+  border: 2px solid #b30000; /* Red border */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s, color 0.3s, transform 0.3s; /* Smooth transitions */
+  display: inline-block; /* Ensure it fits content */
+  text-align: center; /* Center align text */
+}
+
+.back-button:hover {
+  background-color: #b30000; /* Red background on hover */
+  color: #fff; /* White text on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+.button-container {
+  display: flex;
+  gap: 20px; /* Adjust gap between buttons */
+  justify-content: center; /* Center buttons horizontally */
 }

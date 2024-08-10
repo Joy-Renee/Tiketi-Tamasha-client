@@ -23,31 +23,31 @@ const Card = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
-        fetch('https://tiketi-tamasha-server.onrender.com/events')
+        fetch('https://tiketi-tamasha-server.onrender.com/venues')
             .then(response => response.json())
             .then(data => setData(data))
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
     const filteredData = data.filter(item =>
-        item.event_name.toLowerCase().includes(searchQuery.toLowerCase())
+        item.name && item.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
         <div className="card-page">
             <input
                 type="text"
-                placeholder="Search for events..."
+                placeholder="Search for venues..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="search-bar"
             />
             <div className="card-container">
                 {filteredData.map((item) => (
-                    <Link to={`/event/${item.id}`} key={item.id}>
+                    <Link to={`/venue/${item.id}`} key={item.id} className="orgLink">
                         <div className="card">
-                            <img src={item.image} alt={item.event_name} className="card-image" />
-                            <h2 className="card-title">{item.event_name}</h2>
+                            <img src={item.image} alt={item.name} className="card-image" />
+                            <h2 className="card-title">{item.name}</h2>
                         </div>
                     </Link>
                 ))}
