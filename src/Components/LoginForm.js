@@ -1,41 +1,16 @@
-import React, {useState} from 'react'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import React, {useContext, useEffect, useState} from 'react'
 import '../Assets/LoginForm.css'
+import { UserContext } from './Context/UserContext';
 
 function LoginForm() {
+    const {logIn} = useContext(UserContext)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const  navigate = useNavigate()
-
     const logInUser = () => {
-        if(email.length === 0){
-          alert("Enter your email!");
-        }
-        else if(password.length === 0){
-          alert("please enter your password!");
-        }
-        else{
-            axios.post('http://127.0.0.1:5555/login', {
-                email: email,
-                password: password
-            })
-            .then(function (response) {
-                console.log(response);
-                // console.log(response.data);
-                navigate("/");
-            })
-            .catch(function (error) {
-                console.log(error, 'error');
-                if (error.response.status === 401) {
-                    alert("Invalid credentials");
-                }
-            });
-        }
+        logIn(email, password)
     }
-
 
     return (
         <div className='loginpage'>

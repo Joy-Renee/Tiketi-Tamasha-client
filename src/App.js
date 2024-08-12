@@ -7,6 +7,7 @@ import LoginForm from './Components/LoginForm'
 import Register from './Components/Register'
 import {OrganizersPage, Card} from './Components/OrganizersPage'
 import VenuesByIdPage from './Components/VenuesByIdPage'
+import { UserProvider } from './Components/Context/UserContext'
 
 function App () {
   return (
@@ -14,6 +15,7 @@ function App () {
       <div className='container'>
         <h1 className='page-header text-center'>Ticketi Tamasha</h1>
         <BrowserRouter>
+        <UserProvider>
           <Routes>
             <Route path="/" element={<LoginPage/>} />
             <Route path="/login" element={<LoginForm/>} />
@@ -25,6 +27,7 @@ function App () {
               </> } />
             <Route path='/:venue/:id' element={<VenuesByIdPage/>}/>
           </Routes>
+          </UserProvider>
         </BrowserRouter>
       </div>
     </div>
