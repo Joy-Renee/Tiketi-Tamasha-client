@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 
 function Register() {
     const [customer_name,setCustomer_name] = useState('');
@@ -11,7 +11,7 @@ function Register() {
     const navigate = useNavigate();
      
     const registerUser = () => {
-        axios.post('http://127.0.0.1:5555/signup', {
+        axios.post('https://tiketi-tamasha-server.onrender.com/customers', {
             customer_name:customer_name,
             email: email,
             phone_number:phone_number,

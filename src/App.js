@@ -7,6 +7,7 @@ import LoginForm from './Components/LoginForm'
 import Register from './Components/Register'
 import {OrganizersPage, Card} from './Components/OrganizersPage'
 import VenuesByIdPage from './Components/VenuesByIdPage'
+import Events from './Components/events'
 
 function App () {
   return (
@@ -24,6 +25,7 @@ function App () {
                 <Card/>
               </> } />
             <Route path='/:venue/:id' element={<VenuesByIdPage/>}/>
+            <Route path='/events' element={<Events/>}/>
           </Routes>
         </BrowserRouter>
       </div>
