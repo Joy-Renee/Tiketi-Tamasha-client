@@ -12,6 +12,7 @@ function Register() {
     const registerUser = () => {
         register(customer_name, email, phone_number, password)
     }
+
      
   return (
     <div>
