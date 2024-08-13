@@ -8,6 +8,7 @@ import Register from './Components/Register'
 import {OrganizersPage, Card} from './Components/OrganizersPage'
 import VenuesByIdPage from './Components/VenuesByIdPage'
 import Events from './Components/events'
+import Event from './Components/event'
 
 function App () {
   return (
@@ -26,6 +27,7 @@ function App () {
               </> } />
             <Route path='/:venue/:id' element={<VenuesByIdPage/>}/>
             <Route path='/events' element={<Events/>}/>
+            <Route path='/event/:id' element={<Event/>}/>
           </Routes>
         </BrowserRouter>
       </div>
