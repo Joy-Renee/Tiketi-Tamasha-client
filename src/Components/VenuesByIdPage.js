@@ -103,7 +103,7 @@ const VenuesByIdPage = () => {
                             <div className="input-group">
                                 <input
                                     type="number"
-                                    name="Regular"
+                                    name="regular"
                                     value={formData.regular}
                                     onChange={handleInputChange}
                                     min="0"
