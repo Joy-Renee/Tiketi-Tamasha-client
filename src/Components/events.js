@@ -69,6 +69,7 @@ useEffect(() => {
                 <li><Link to="/events">Events</Link></li>
                 <li><Link to="/my-tickets">My Tickets</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
+                <li><i class="bi bi-cart"></i></li>
             </ul>
         </nav>
         <form className="d-flex" onSubmit={handleSubmit}>
