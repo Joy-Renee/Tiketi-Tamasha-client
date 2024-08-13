@@ -1,36 +1,18 @@
-import React, { useState } from "react";
-import axios from 'axios';
-import {useNavigate, Link} from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { UserContext } from "./Context/UserContext";
 
 function Register() {
     const [customer_name,setCustomer_name] = useState('');
     const [email,setEmail] = useState('');
     const [phone_number,setPhone_number] = useState('');
     const [password,setPassword] = useState('');
-   
-    const navigate = useNavigate();
+
+    const {register} = useContext(UserContext)
      
     const registerUser = () => {
-        axios.post('https://tiketi-tamasha-server.onrender.com/customers', {
-            customer_name:customer_name,
-            email: email,
-            phone_number:phone_number,
-            password: password
-        })
-        .then(function (response) {
-             console.log(response);
-             alert("Successful registration");
-            navigate("/login");
-        })
-        .catch(function (error) {
-            console.log(error, 'error');
-            if (error.response.status === 401) {
-                alert("Invalid credentials");
-            }
-        });
-    };
-     
-    
+        register(customer_name, email, phone_number, password)
+    }
+
      
   return (
     <div>

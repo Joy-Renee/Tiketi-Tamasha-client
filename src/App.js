@@ -7,6 +7,7 @@ import LoginForm from './Components/LoginForm'
 import Register from './Components/Register'
 import {OrganizersPage, Card} from './Components/OrganizersPage'
 import VenuesByIdPage from './Components/VenuesByIdPage'
+import { UserProvider } from './Components/Context/UserContext'
 import Events from './Components/events'
 import Event from './Components/event'
 
@@ -16,6 +17,7 @@ function App () {
       <div className='container'>
         <h1 className='page-header text-center'>Ticketi Tamasha</h1>
         <BrowserRouter>
+        <UserProvider>
           <Routes>
             <Route path="/" element={<LoginPage/>} />
             <Route path="/login" element={<LoginForm/>} />
@@ -29,6 +31,7 @@ function App () {
             <Route path='/events' element={<Events/>}/>
             <Route path='/event/:id' element={<Event/>}/>
           </Routes>
+          </UserProvider>
         </BrowserRouter>
       </div>
     </div>
