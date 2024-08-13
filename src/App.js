@@ -1,15 +1,16 @@
-import './App.css'
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import LoginPage from './Components/LoginPage'
-import LoginForm from './Components/LoginForm'
-import Register from './Components/Register'
-import { OrganizersPage, Card } from './Components/OrganizersPage'
-import VenuesByIdPage from './Components/VenuesByIdPage'
-import { UserProvider } from './Components/Context/UserContext'
-import Events from './Components/events'
-import Event from './Components/event'
-import PaymentPage from './Components/PaymentPage'  
+import './App.css';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LoginPage from './Components/LoginPage';
+import LoginForm from './Components/LoginForm';
+import Register from './Components/Register';
+import { OrganizersPage, Card } from './Components/OrganizersPage';
+import VenuesByIdPage from './Components/VenuesByIdPage';
+import { UserProvider } from './Components/Context/UserContext';
+import Events from './Components/events';
+import Event from './Components/event';
+import CartPage from './Components/CartPage';
+import PaymentPage from './Components/PaymentPage'; // Import PaymentPage
 
 function App() {
   return (
@@ -31,13 +32,14 @@ function App() {
               <Route path='/:venue/:id' element={<VenuesByIdPage />} />
               <Route path='/events' element={<Events />} />
               <Route path='/event/:id' element={<Event />} />
-              <Route path='/payment' element={<PaymentPage />} /> 
+              <Route path='/cart' element={<CartPage />} /> 
+              <Route path='/payment' element={<PaymentPage />} /> {/* Add this route */}
             </Routes>
           </UserProvider>
         </BrowserRouter>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

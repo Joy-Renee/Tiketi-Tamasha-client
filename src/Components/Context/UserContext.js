@@ -50,7 +50,7 @@ export const UserProvider = ({children}) => {
                 if (response.data.access_token){
                     setAuthtoken(response.data.access_token)
                     localStorage.setItem('token', response.data.access_token)
-                    navigate("/venues");
+                    navigate("/events");
                 }
                 else if(response.error){
                     alert(response.error)

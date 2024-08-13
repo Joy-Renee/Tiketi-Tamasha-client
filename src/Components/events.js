@@ -69,8 +69,10 @@ useEffect(() => {
                 <li><Link to="/events">Events</Link></li>
                 <li><Link to="/my-tickets">My Tickets</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
-                <li><i class="bi bi-cart"></i></li>
             </ul>
+            <Link to="/cart">
+                <button className="cart">Cart</button>
+            </Link>
         </nav>
         <form className="d-flex" onSubmit={handleSubmit}>
             {/* <div className="d-flex align-items-center"> */}

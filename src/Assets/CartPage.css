@@ -1,5 +1,5 @@
-.payment-container {
-    font-family: Arial, sans-serif;
+.cart-container {
+    font-family: 'Sulphur Point', sans-serif;
     color: black;
     padding: 20px;
     position: relative;
@@ -17,7 +17,7 @@
     cursor: pointer;
   }
   
-  .payment-title {
+  .cart-title {
     text-align: center;
     font-size: 24px;
     margin-bottom: 20px;

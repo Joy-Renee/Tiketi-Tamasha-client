@@ -14,9 +14,8 @@ const OrganizersPage = () => {
                 <li><Link to="/services">Services</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
             </ul>
-            {/* Modified Cart Button to Link to Payment Page */}
-            <Link to="/payment">
-                <button className="cart">Go to Payment</button>
+            <Link to="/cart">
+                <button className="cart">Cart</button>
             </Link>
         </nav>
     );
