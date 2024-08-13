@@ -18,7 +18,7 @@ function LoginForm() {
           alert("please enter your password!");
         }
         else{
-            axios.post('http://127.0.0.1:5555/login', {
+            axios.post('https://tiketi-tamasha-server.onrender.com/login', {
                 email: email,
                 password: password
             })
