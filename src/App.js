@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState } from 'react'; // Import useState
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './Components/LoginPage';
 import LoginForm from './Components/LoginForm';
@@ -12,7 +12,8 @@ import Event from './Components/event';
 import CartPage from './Components/CartPage';
 import PaymentPage from './Components/PaymentPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import LoginOrganizer from './Components/LoginOrganizer';
+import RegisterOrganizer from './Components/RegisterOrganizer';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -54,21 +55,6 @@ function App() {
   };
 
   return (
-    // <Router>
-    //   <div className="App">
-    //     <Routes>
-    //       <Route path="/" element={<Events />} />
-    //       <Route path="/events" element={<Events />} />
-    //       <Route path="/event/:id" element={<Event onAddToCart={handleAddToCart} />} />
-    //       <Route
-    //         path="/cart"
-    //         element={<CartPage cartItems={cartItems} updateCartItems={updateCartItems} updateAvailableTickets={updateAvailableTickets} />}
-    //       />
-    //       <Route path="/payment" element={<PaymentPage />} />
-    //       <Route path="/organizers" element={<OrganizersPage />} />
-    //     </Routes>
-    //   </div>
-    // </Router>
     <div className='vh-100 gradient-custom'>
       <div className='container'>
         <h1 className='page-header text-center'>Ticketi Tamasha</h1>
@@ -77,7 +63,9 @@ function App() {
             <Routes>
               <Route path="/" element={<LoginPage />} />
               <Route path="/login" element={<LoginForm />} />
+              <Route path="/loginOrganizer" element={<LoginOrganizer />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/registerOrganizer" element={<RegisterOrganizer />} />
               <Route path='/venues' element={
                 <>
                   <OrganizersPage />
