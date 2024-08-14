@@ -10,7 +10,9 @@ export const UserProvider = ({children}) => {
     const navigate = useNavigate();
 
     const [currentUser, setCurrentUser] = useState(null);
+    const [currentOrganizer, setCurrentOrganizer] = useState(null);
     const [authToken, setAuthtoken] = useState(()=> localStorage.getItem('token')? localStorage.getItem('token') : null);
+    const [authTokenOrganizer, setAuthtokenOrganizer] = useState(()=> localStorage.getItem('token')? localStorage.getItem('token') : null);
 
     const register = (customer_name, email, phone_number, password) => {
         axios.post('https://tiketi-tamasha-server.onrender.com/customers', {
@@ -23,6 +25,26 @@ export const UserProvider = ({children}) => {
              console.log(response);
              alert("Successful registration");
             navigate("/login");
+        })
+        .catch(function (error) {
+            console.log(error, 'error');
+            if (error.response.status === 401) {
+                alert("Invalid credentials");
+            }
+        });
+    };
+
+    const registerOrganizer = (organizer_name, email, phone_number, password) => {
+        axios.post('https://tiketi-tamasha-server.onrender.com/organizers', {
+            organizer_name:organizer_name,
+            email: email,
+            phone_number:phone_number,
+            password: password
+        })
+        .then(function (response) {
+             console.log(response);
+             alert("Successful registration");
+            navigate("/loginOrganizer");
         })
         .catch(function (error) {
             console.log(error, 'error');
@@ -49,6 +71,40 @@ export const UserProvider = ({children}) => {
                 // console.log(response.data.access_token);
                 if (response.data.access_token){
                     setAuthtoken(response.data.access_token)
+                    localStorage.setItem('token', response.data.access_token)
+                    navigate("/events");
+                }
+                else if(response.error){
+                    alert(response.error)
+                }
+                
+            })
+            .catch(function (error) {
+                console.log(error, 'error');
+                if (error.response.status === 401) {
+                    alert("Invalid credentials");
+                }
+            });
+        }
+    }
+
+    const logInOrganizer = (email, password) => {
+        if(email.length === 0){
+          alert("Enter your email!");
+        }
+        else if(password.length === 0){
+          alert("please enter your password!");
+        }
+        else{
+            axios.post('https://tiketi-tamasha-server.onrender.com/loginOrganizer', {
+                email: email,
+                password: password
+            })
+            .then(function (response) {
+                // console.log(response);
+                // console.log(response.data.access_token);
+                if (response.data.access_token){
+                    setAuthtokenOrganizer(response.data.access_token)
                     localStorage.setItem('token', response.data.access_token)
                     navigate("/venues");
                 }
@@ -92,6 +148,32 @@ export const UserProvider = ({children}) => {
             })
   }
 
+    function logoutOrganizer(){
+
+
+        fetch('https://tiketi-tamasha-server.onrender.com/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authTokenOrganizer}`
+            }}
+            )
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                if(res.Success){
+                    alert("successfully logged out")
+                    setAuthtokenOrganizer(null)
+                    localStorage.removeItem('token')
+                    navigate('/login')
+                }
+            
+                else{
+                    alert("Something went wrong")
+                }
+            })
+  }
+
     useEffect(() => {
         if(authToken){
             fetch('https://tiketi-tamasha-server.onrender.com/current_user', {
@@ -114,11 +196,37 @@ export const UserProvider = ({children}) => {
         }
       }, [authToken])
 
+    useEffect(() => {
+        if(authTokenOrganizer){
+            fetch('https://tiketi-tamasha-server.onrender.com/current_organizer', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${authTokenOrganizer}`
+                }
+            
+            })
+            .then(res => res.json())
+            .then(res => {
+                setCurrentOrganizer(res)
+            })
+    
+            
+        }
+        else{
+            setCurrentOrganizer(null)
+        }
+      }, [authTokenOrganizer])
+
     const contextData = {
         currentUser,
         register,
         logIn,
-        logout
+        logout,
+        registerOrganizer,
+        logInOrganizer,
+        logoutOrganizer,
+        currentOrganizer
     }
 
     return(

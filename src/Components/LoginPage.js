@@ -21,8 +21,12 @@ export default  function LoginPage(){
             <h1>Party People</h1>
             <p>Vibes and inshallah</p>
             <div class="buttons">
-              <Link to='/login' class="btn login">Login</Link>
-              <Link to="/register" class="btn signup">Sign Up</Link>
+              <Link to='/login' class="btn login">Login Customer</Link>
+              <Link to="/register" class="btn signup">Sign Up Customer</Link>
+            </div>
+            <div class="buttons">
+              <Link to='/loginOrganizer' class="btn login">Login Organizer</Link>
+              <Link to="/registerOrganizer" class="btn signup">Sign Up Organizer</Link>
             </div>
             <div class="viewer">
               <ul class="socials">
