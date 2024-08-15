@@ -1,0 +1,14 @@
+@media(max-width: 768px){
+    .event-card{
+        width: 100% !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .event-card img{
+        width: 100% !important;
+        height: auto !important;
+    }
+
+   
+
+}

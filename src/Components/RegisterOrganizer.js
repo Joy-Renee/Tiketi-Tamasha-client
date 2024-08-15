@@ -1,16 +1,16 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "./Context/UserContext";
 
-function Register() {
-    const [customer_name,setCustomer_name] = useState('');
+function RegisterOrganizer() {
+    const [organizer_name,setorganizer_name] = useState('');
     const [email,setEmail] = useState('');
     const [phone_number,setPhone_number] = useState('');
     const [password,setPassword] = useState('');
 
-    const {register} = useContext(UserContext)
+    const {registerOrganizer} = useContext(UserContext)
      
     const registerUser = () => {
-        register(customer_name, email, phone_number, password)
+        registerOrganizer(organizer_name, email, phone_number, password)
     }
 
      
@@ -20,9 +20,9 @@ function Register() {
             <div className='wrapper'>
                 <div className='form-wrapper sign-in'>
                     <form>
-                        <h2>Register Here</h2>
+                        <h2>Register Organizer</h2>
                         <div className='input-group'>
-                        <input type="text" value={customer_name} onChange={(e) => setCustomer_name(e.target.value)} />
+                        <input type="text" value={organizer_name} onChange={(e) => setorganizer_name(e.target.value)} />
                         <label >Customer Name</label>
                         </div>
                         <div className='input-group'>
@@ -40,7 +40,7 @@ function Register() {
                         
                         <button type="button" onClick={() => registerUser()} >Sign Up</button>
                         <div className='signup-link'>
-                        <p>Already have an account? <a href="/login" className="signUpBtn-link">Login</a></p>
+                        <p>Already have an account? <a href="/loginOrganizer" className="signUpBtn-link">Login</a></p>
                         </div>
                     </form>
                 </div>
@@ -52,4 +52,4 @@ function Register() {
   );
 }
 
-export default Register
+export default RegisterOrganizer

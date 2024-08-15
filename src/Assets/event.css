@@ -1,0 +1,60 @@
+.buy-ticket {
+    background: transparent; /* No background */
+    color: black; /* Red text */
+    font-size: 1rem; /* Adjust text size */
+    text-decoration: none; /* Remove underline */
+    padding: 8px 16px; /* Padding for spacing */
+    border: 2px solid black; /* Red border */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s, color 0.3s, transform 0.3s; /* Smooth transitions */
+    display: inline-block; /* Ensure it fits content */
+    text-align: center; /* Center align text */
+  }
+  
+  .buy-ticket:hover {
+    background-color:black; /* Red background on hover */
+    color: #fff; /* White text on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+  }
+  .return-button{
+    background: transparent; /* No background */
+    color: black; /* Red text */
+    font-size: 1rem; /* Adjust text size */
+    text-decoration: none; /* Remove underline */
+    padding: 8px 16px; /* Padding for spacing */
+    border: 2px solid  black; /* Red border */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s, color 0.3s, transform 0.3s; /* Smooth transitions */
+    display: inline-block; /* Ensure it fits content */
+    text-align: center; /* Center align text */
+  }
+  
+  .return-button:hover {
+    background-color: black; /* Red background on hover */
+    color: #fff; /* White text on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+  }
+
+  .buttons-container {
+    display: flex;
+    gap: 20px; /* Adjust gap between buttons */
+    justify-content: center; /* Center buttons horizontally */
+  }
+  .confirm-button{
+    background: transparent; /* No background */
+    color: black; /* Red text */
+    font-size: 1rem; /* Adjust text size */
+    text-decoration: none; /* Remove underline */
+    padding: 8px 16px; /* Padding for spacing */
+    border: 2px solid  black; /* Red border */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s, color 0.3s, transform 0.3s; /* Smooth transitions */
+    display: inline-block; /* Ensure it fits content */
+    text-align: center; /* Center align text */
+  }
+  
+  .confirm-button:hover {
+    background-color: black; /* Red background on hover */
+    color: #fff; /* White text on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+  }
