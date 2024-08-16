@@ -50,6 +50,7 @@ const VenuesByIdPage = () => {
                 <h2 className="card-title">{venue.name}</h2>
                 <p className="card-capacity">Capacity: {venue.capacity}</p>
                 <p className="card-address">Address: {venue.address}</p> 
+                <p className="card-address">Venue Price: {venue.venue_price}</p>
                 <div className="button-container">
                     <button className="rent-button" onClick={() => setShowForm(!showForm)}>Rent</button>
                     <Link to="/venues">

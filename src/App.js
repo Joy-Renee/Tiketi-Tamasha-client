@@ -10,6 +10,9 @@ import VenuesByIdPage from './Components/VenuesByIdPage'
 import { UserProvider } from './Components/Context/UserContext'
 import Events from './Components/events'
 import Event from './Components/event'
+import LoginOrganizer from './Components/LoginOrganizer'
+import RegisterOrganizer from './Components/RegisterOrganizer'
+
 
 function App () {
   return (
@@ -21,7 +24,9 @@ function App () {
           <Routes>
             <Route path="/" element={<LoginPage/>} />
             <Route path="/login" element={<LoginForm/>} />
+            <Route path="/loginOrganizer" element={<LoginOrganizer/>} />
             <Route path="/register" element={<Register/>} />
+            <Route path="/registerOrganizer" element={<RegisterOrganizer/>} />
             <Route path='/venues' element={
               <>
                 <OrganizersPage/>
