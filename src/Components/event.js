@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import '../Assets/event.css';
 
-function Event({ onAddToCart }) {
+function Event({ onAddToCart, availableTickets, updateAvailableTickets, userType }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -41,14 +41,6 @@ function Event({ onAddToCart }) {
       .catch((error) => console.error('Error fetching Tickets:', error));
   }, [id]);
 
-  const handleQuantityChange = (ticketId, value) => {
-    setTicketQuantities((prevQuantities) => {
-      const newQuantities = { ...prevQuantities, [ticketId]: value };
-      calculateTotalPrice(newQuantities);
-      return newQuantities;
-    });
-  };
-
   const calculateTotalPrice = (quantities) => {
     let total = 0;
     const updatedTickets = tickets.map((ticket) => {
@@ -66,17 +58,32 @@ function Event({ onAddToCart }) {
     setTotalPrice(total);
   };
 
+  const handleAddToCart = () => {
+    const ticketsToAdd = tickets
+      .filter(ticket => ticketQuantities[ticket.id] > 0)
+      .map(ticket => ({
+        event_name: event.name,
+        ticket_description: ticket.ticket_description,
+        price: ticket.ticket_price,
+        quantity: ticketQuantities[ticket.id],
+      }));
+  
+    ticketsToAdd.forEach(ticket => {
+      onAddToCart(ticket);
+      updateAvailableTickets(event.name, ticket.ticket_description, -ticket.quantity);
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const selectedTickets = tickets
-      .filter((ticket) => ticketQuantities[ticket.id] > 0)
-      .map((ticket) => ({
+      .filter(ticket => ticketQuantities[ticket.id] > 0)
+      .map(ticket => ({
         event_name: event.event_name,
         ticket_description: ticket.ticket_description,
         ticket_price: ticket.ticket_price,
         quantity: ticketQuantities[ticket.id],
-        available: ticket.available,
       }));
 
     if (typeof onAddToCart === 'function') {
@@ -97,6 +104,15 @@ function Event({ onAddToCart }) {
     setTotalPrice(0);
 
     navigate('/cart');
+  };
+
+  const handleTicketChange = (ticketId, e) => {
+    const quantity = parseInt(e.target.value, 10);
+    setTicketQuantities(prev => {
+      const newQuantities = { ...prev, [ticketId]: quantity };
+      calculateTotalPrice(newQuantities);
+      return newQuantities;
+    });
   };
 
   if (loading) {
@@ -163,26 +179,34 @@ function Event({ onAddToCart }) {
                 {formVisible && (
                   <form onSubmit={handleSubmit} style={{ backgroundColor: 'red', padding: '20px', borderRadius: '8px' }}>
                     <h2 className="fw-light text-white fs-2">SELECT TICKETS</h2>
-                    {tickets.map((ticket) => (
-                      <div key={ticket.id} style={{ marginBottom: '15px' }}>
-                        <h4>{ticket.ticket_description}</h4>
-                        <p>Price: ${ticket.ticket_price}</p>
-                        <p>Available: {ticket.available}</p>
-                        <input
-                          type="number"
-                          min="0"
-                          max={ticket.available}
-                          value={ticketQuantities[ticket.id] || 0}
-                          onChange={(e) => handleQuantityChange(ticket.id, Number(e.target.value))}
-                        />
-                        <p>Subtotal: ${ticket.subtotal ? ticket.subtotal.toFixed(2) : 0}</p>
-                      </div>
-                    ))}
+                    {tickets.map((ticket) => {
+                      const ticketId = ticket.id;
+                      const price = ticket.ticket_price || 0;
+                      const quantity = ticketQuantities[ticketId] || 0;
+                      const subtotal = (price * quantity).toFixed(2);
+
+                      return (
+                        <div key={ticketId} style={{ marginBottom: '15px' }}>
+                          <h4>{ticket.ticket_description}</h4>
+                          <p>Price: ${price.toFixed(2)}</p>
+                          <p>Available: {ticket.available}</p>
+                          <input
+                            type="number"
+                            min="0"
+                            max={availableTickets[event.name]?.[ticket.ticket_description] || ticket.available}
+                            value={quantity}
+                            onChange={(e) => handleTicketChange(ticketId, e)}
+                          />
+                          <p>Subtotal: ${subtotal}</p>
+                        </div>
+                      );
+                    })}
                     <h2>Total Price: ${totalPrice.toFixed(2)}</h2>
                     <button type="submit" className="confirm-button">
                       Confirm Purchase
                     </button>
                   </form>
+
                 )}
               </div>
             </div>
