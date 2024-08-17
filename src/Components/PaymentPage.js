@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import "../Assets/PaymentPage.css";
+import { useNavigate } from 'react-router-dom';
 
 function PaymentPage({ summary, onPaymentSuccess, onCancel }) {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -34,6 +35,13 @@ function PaymentPage({ summary, onPaymentSuccess, onCancel }) {
       alert('Please enter both phone number and payment amount.');
     }
   };
+
+  const handleCancel = () => {
+        setSummary(null);
+        setPhoneNumber('');
+        setPaymentAmount('');
+        navigate('/events');
+    };
 
   return (
         <div>
