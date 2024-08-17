@@ -23,8 +23,8 @@ export const UserProvider = ({children}) => {
         })
         .then(function (response) {
              console.log(response);
-             alert("Successful registration");
-            navigate("/login");
+             alert("Successful registration and email sent successfull");
+            // navigate("/login");
         })
         .catch(function (error) {
             console.log(error, 'error');
