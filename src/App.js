@@ -124,7 +124,7 @@ function App() {
                   />
                 }
               />
-              <Route path="/payment" element={<PaymentPage />} />
+              <Route path="/payments" element={<PaymentPage />} />
             </Routes>
           </UserProvider>
         </Router>
