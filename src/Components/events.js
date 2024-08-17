@@ -70,6 +70,9 @@ useEffect(() => {
                 <li><Link to="/my-tickets">My Tickets</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
             </ul>
+            <Link to="/order">
+                <button className="cart">Cart</button>
+            </Link>
         </nav>
         <form className="d-flex" onSubmit={handleSubmit}>
             {/* <div className="d-flex align-items-center"> */}
@@ -124,3 +127,4 @@ useEffect(() => {
 }
 
 export default Events
+
