@@ -1,72 +1,67 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+import axios from 'axios';
+import "../Assets/PaymentPage.css"; // Ensure you have some basic styling here
 
-const PaymentsOrganizer = ({ userId }) => {
-    const navigate = useNavigate();
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [paymentAmount, setPaymentAmount] = useState('');
-    const [summary, setSummary] = useState(null);
+function PaymentOrganizer() {
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [paymentAmount, setPaymentAmount] = useState('');
+  const [loading, setLoading] = useState(false);
 
-    const handlePayment = async (e) => {
-        e.preventDefault();
-        if (phoneNumber && paymentAmount) {
-            try {
-                const response = await axios.post('https://tiketi-tamasha-server.onrender.com/paymentsorganizer', {
-                    phone_number: phoneNumber.trim(),
-                    amount: paymentAmount,
-                    user_id: userId
-                }, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                });
+  const handlePayment = async (event) => {
+    event.preventDefault();
 
-                if (response.data.ResponseCode === '0') {
-                    alert('Payment successful!');
-                } else {
-                    alert('Payment failed. Please try again.');
-                }
-            } catch (error) {
-                // console.error('Payment error:', error);
-                alert('Check your phone for the confirmation message.');
-            }
-            setSummary(null);
-            setPhoneNumber('');
-            setPaymentAmount('');
+    if (phoneNumber && paymentAmount) {
+      setLoading(true);
+      try {
+        const response = await axios.post('https://tiketi-tamasha-server.onrender.com/pay', {
+          phone_number: phoneNumber.trim(),
+          amount: paymentAmount,
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+
+        if (response.data.CheckoutRequestID) {
+          alert('Payment request sent successfully! Please check your phone to complete the payment.');
         } else {
-            alert('Please enter both phone number and payment amount.');
+          alert('Payment initiation failed. Please try again.');
         }
-    };
+      } catch (error) {
+        console.error('Payment error:', error);
+        alert('An error occurred while initiating payment. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      alert('Please enter both phone number and payment amount.');
+    }
+  };
 
-    const handleCancel = () => {
-        setSummary(null);
-        setPhoneNumber('');
-        setPaymentAmount('');
-        navigate('/venues');
-    };
-
-    return (
-        <div>
-            <h1>Payment Page</h1>
-            <form onSubmit={handlePayment}>
-                <input
-                    type="text"
-                    placeholder="Phone Number"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                />
-                <input
-                    type="text"
-                    placeholder="Amount"
-                    value={paymentAmount}
-                    onChange={(e) => setPaymentAmount(e.target.value)}
-                />
-                <button type="submit" className="submit">Submit</button>
-                <button type="button" className="cancel" onClick={handleCancel}>Cancel</button>
-            </form>
-        </div>
-    );
+  return (
+    <div className="payment-page">
+      <h1>Payment Page</h1>
+      <form onSubmit={handlePayment} className="payment-form">
+        <input
+          type="text"
+          placeholder="Phone Number"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          required
+        />
+        <input
+          type="number"
+          placeholder="Amount"
+          value={paymentAmount}
+          onChange={(e) => setPaymentAmount(e.target.value)}
+          required
+        />
+        <button type="submit" className="submit" disabled={loading}>
+          {loading ? 'Processing...' : 'Submit'}
+        </button>
+      </form>
+    </div>
+  );
 }
 
-export default PaymentsOrganizer;
+export default PaymentOrganizer;
