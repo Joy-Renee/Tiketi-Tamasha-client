@@ -15,7 +15,6 @@ function PaymentPage({ summary, onPaymentSuccess, onCancel }) {
         const response = await axios.post('https://tiketi-tamasha-server.onrender.com/pay', {
           phone_number: phoneNumber.trim(),
           amount: paymentAmount,
-          user_id: summary.user_id, // Pass user_id if needed
         }, {
           headers: {
             'Content-Type': 'application/json',
