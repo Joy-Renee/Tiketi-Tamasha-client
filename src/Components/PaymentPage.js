@@ -27,7 +27,7 @@ const PaymentPage = ({ userId }) => {
                 alert('Payment failed. Please try again.');
             }
         } catch (error) {
-            console.error('Payment error:', error);
+            // console.error('Payment error:', error);
             alert('Check your phone for the confirmation message.');
         }
         setSummary(null);
