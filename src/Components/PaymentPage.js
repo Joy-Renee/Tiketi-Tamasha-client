@@ -36,33 +36,26 @@ function PaymentPage({ summary, onPaymentSuccess, onCancel }) {
   };
 
   return (
-    <div className="payment-form">
-      <h2>Order Summary</h2>
-      <p>Event: {summary.title}</p>
-      <p>Tickets: {summary.ticketCount}</p>
-      <p>Total Amount: ksh {summary.totalAmount}</p>
-      <input
-        type="text"
-        placeholder="Phone Number"
-        value={phoneNumber}
-        onChange={(e) => setPhoneNumber(e.target.value)}
-        className="phone-input"
-      />
-      <input
-        type="text"
-        placeholder="Payment Amount"
-        value={paymentAmount}
-        onChange={(e) => setPaymentAmount(e.target.value)}
-        className="amount-input"
-      />
-      <button onClick={handlePayment} className="confirm-payment-button">
-        Confirm Payment
-      </button>
-      <button onClick={onCancel} className="cancel-button">
-        Cancel
-      </button>
-    </div>
-  );
+        <div>
+            <h1>Payment Page</h1>
+            <form onSubmit={handlePayment}>
+                <input
+                    type="text"
+                    placeholder="Phone Number"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                />
+                <input
+                    type="text"
+                    placeholder="Amount"
+                    value={paymentAmount}
+                    onChange={(e) => setPaymentAmount(e.target.value)}
+                />
+                <button type="submit" className="submit">Submit</button>
+                <button type="button" className="cancel" onClick={handleCancel}>Cancel</button>
+            </form>
+        </div>
+    );
 }
 
 export default PaymentPage;
