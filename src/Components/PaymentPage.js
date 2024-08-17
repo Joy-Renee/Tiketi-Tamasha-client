@@ -13,7 +13,7 @@ const PaymentPage = ({ userId }) => {
         e.preventDefault();
         if (phoneNumber && paymentAmount) {
             try {
-                const response = await axios.post('https://tiketi-tamasha-server.onrender.com/payments', {
+                const response = await axios.post('https://tiketi-tamasha-server.onrender.com/pay', {
                     phone_number: phoneNumber.trim(),
                     amount: paymentAmount,
                     user_id: userId // Assuming you have the user_id passed as a prop
