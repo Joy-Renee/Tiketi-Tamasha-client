@@ -1,73 +1,69 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
 import "../Assets/PaymentPage.css";
-import { useNavigate } from 'react-router-dom';
 
-const PaymentPage = ({ userId }) => {
-    const navigate = useNavigate();
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [paymentAmount, setPaymentAmount] = useState('');
-    const [summary, setSummary] = useState(null);
+function PaymentPage({ summary, onPaymentSuccess, onCancel }) {
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [paymentAmount, setPaymentAmount] = useState('');
 
-    const handlePayment = async (e) => {
-        e.preventDefault();
-        if (phoneNumber && paymentAmount) {
-            try {
-                const response = await axios.post('https://tiketi-tamasha-server.onrender.com/pay', {
-                    phone_number: phoneNumber.trim(),
-                    amount: paymentAmount,
-                    user_id: userId // Assuming you have the user_id passed as a prop
-                }, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                });
+  const handlePayment = async () => {
+    if (phoneNumber && paymentAmount) {
+      try {
+        const response = await axios.post('https://tiketi-tamasha-server.onrender.com/pay', {
+          phone_number: phoneNumber.trim(),
+          amount: paymentAmount,
+          user_id: userId, // Assuming you have the user_id stored somewhere
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
 
-                if (response.data.ResponseCode === '0') {
-                    alert('Payment successful!');
-                } else {
-                    alert('Payment failed. Please try again.');
-                }
-            } catch (error) {
-                // console.error('Payment error:', error);
-                alert('Check your phone for the confirmation message.');
-            }
-            setSummary(null);
-            setPhoneNumber('');
-            setPaymentAmount('');
+        if (response.data.ResponseCode === '0') {
+          alert('Payment successful!');
+          onPaymentSuccess(); // Call the callback function to reset summary and other states
         } else {
-            alert('Please enter both phone number and payment amount.');
+          alert('Payment failed. Please try again.');
         }
-    };
+      } catch (error) {
+        console.error('Payment error:', error);
+        alert('Payment error. Please try again.');
+      }
+      setPhoneNumber('');
+      setPaymentAmount('');
+    } else {
+      alert('Please enter both phone number and payment amount.');
+    }
+  };
 
-    const handleCancel = () => {
-        setSummary(null);
-        setPhoneNumber('');
-        setPaymentAmount('');
-        navigate('/events');
-    };
-
-    return (
-        <div>
-            <h1>Payment Page</h1>
-            <form onSubmit={handlePayment}>
-                <input
-                    type="text"
-                    placeholder="Phone Number"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                />
-                <input
-                    type="text"
-                    placeholder="Amount"
-                    value={paymentAmount}
-                    onChange={(e) => setPaymentAmount(e.target.value)}
-                />
-                <button type="submit" className="submit">Submit</button>
-                <button type="button" className="cancel" onClick={handleCancel}>Cancel</button>
-            </form>
-        </div>
-    );
+  return (
+    <div className="payment-form">
+      <h2>Order Summary</h2>
+      <p>Event: {summary.title}</p>
+      <p>Tickets: {summary.ticketCount}</p>
+      <p>Total Amount: ksh {summary.totalAmount}</p>
+      <input
+        type="text"
+        placeholder="Phone Number"
+        value={phoneNumber}
+        onChange={(e) => setPhoneNumber(e.target.value)}
+        className="phone-input"
+      />
+      <input
+        type="text"
+        placeholder="Payment Amount"
+        value={paymentAmount}
+        onChange={(e) => setPaymentAmount(e.target.value)}
+        className="amount-input"
+      />
+      <button onClick={handlePayment} className="confirm-payment-button">
+        Confirm Payment
+      </button>
+      <button onClick={onCancel} className="cancel-button">
+        Cancel
+      </button>
+    </div>
+  );
 }
 
 export default PaymentPage;
