@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import '../Assets/VenuesPage.css';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
-const VenuesByIdPage = () => {
+const VenuesByIdPage = ({ addToCart, userType }) => {
     const { id } = useParams();  // Get the ID from the route parameters
     const [venue, setVenue] = useState(null);
     const [showForm, setShowForm] = useState(false);  // State to control form visibility
     const [formData, setFormData] = useState({
         regular: '',
         vip: '',
-        // vvips: '',
         earlyBird: '',
-        // groupTicket: '',
         date: '',
         time: '',
         eventName: '',
     });
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Fetch data for the specific venue using the ID
@@ -24,10 +22,6 @@ const VenuesByIdPage = () => {
             .then(data => setVenue(data))
             .catch(error => console.error('Error fetching data:', error));
     }, [id]);
-
-    if (!venue) {
-        return <p>Loading...</p>;
-    }
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -39,9 +33,33 @@ const VenuesByIdPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission logic here
         console.log('Form submitted:', formData);
+
+        // Define the venue to rent based on formData
+        const venueToRent = {
+            venue_name: venue.name,
+            regular_tickets: formData.regular,
+            vip_tickets: formData.vip,
+            early_bird_tickets: formData.earlyBird,
+            event_date: formData.date,
+            event_time: formData.time,
+            event_name: formData.eventName,
+        };
+
+        // Ensure addToCart is defined and correctly handles the venue object
+        if (typeof addToCart === 'function') {
+            addToCart(venueToRent);
+        } else {
+            console.error('addToCart is not a function');
+        }
+
+        // Navigate to the cart page
+        navigate('/cart');
     };
+
+    if (!venue) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <div className="card-container">
@@ -66,38 +84,33 @@ const VenuesByIdPage = () => {
                                     name="date"
                                     value={formData.date}
                                     onChange={handleInputChange}
-                                    placeholder="Date "
+                                    placeholder="Date"
                                     required
                                 />
-                                
                             </div>
                         </div>
                         <div className="form-group">
                             <div className="input-group">
-                            
                                 <input
                                     type="time"
                                     name="time"
                                     value={formData.time}
                                     onChange={handleInputChange}
-                                    placeholder="Time " 
+                                    placeholder="Time"
                                     required
                                 />
-                                <label>Time</label>
                             </div>
                         </div>
                         <div className="form-group">
                             <div className="input-group">
-                                
                                 <input
                                     type="text"
                                     name="eventName"
                                     value={formData.eventName}
                                     onChange={handleInputChange}
-                                    placeholder="Event Name " // Add a space to ensure the placeholder is not empty
+                                    placeholder="Event Name"
                                     required
                                 />
-                                {/* <label>Event Name:</label> */}
                             </div>
                         </div>
                         <div className="form-group">
@@ -108,11 +121,9 @@ const VenuesByIdPage = () => {
                                     value={formData.regular}
                                     onChange={handleInputChange}
                                     min="0"
-                                    placeholder="Regular"
+                                    placeholder="Regular Tickets"
                                     required
-                                    
                                 />
-                                {/* <label>General Admission</label> */}
                             </div>
                         </div>
                         <div className="form-group">
@@ -123,24 +134,11 @@ const VenuesByIdPage = () => {
                                     value={formData.vip}
                                     onChange={handleInputChange}
                                     min="0"
-                                    placeholder="VIP Tickets "
+                                    placeholder="VIP Tickets"
                                     required
                                 />
                             </div>
                         </div>
-                        {/* <div className="form-group">
-                            <div className="input-group">
-                                <input
-                                    type="number"
-                                    name="vvips"
-                                    value={formData.vvips}
-                                    onChange={handleInputChange}
-                                    min="0"
-                                    placeholder="VVIP Tickets "
-                                    required
-                                />                               
-                            </div>
-                        </div> */}
                         <div className="form-group">
                             <div className="input-group">
                                 <input
@@ -149,24 +147,11 @@ const VenuesByIdPage = () => {
                                     value={formData.earlyBird}
                                     onChange={handleInputChange}
                                     min="0"
-                                    placeholder="Early Bird Tickets "
+                                    placeholder="Early Bird Tickets"
                                     required
                                 />
                             </div>
                         </div>
-                        {/* <div className="form-group">
-                            <div className="input-group">
-                                <input
-                                    type="number"
-                                    name="groupTicket"
-                                    value={formData.groupTicket}
-                                    onChange={handleInputChange}
-                                    min="0"
-                                    placeholder="Group Tickets of 5 "
-                                    required
-                                />
-                            </div>
-                        </div> */}
                         <button type="submit" className="submit-button">Submit</button>
                     </form>
                 )}
