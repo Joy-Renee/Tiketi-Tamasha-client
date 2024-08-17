@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 
-const VenuesByIdPage = ({ addToCart, userType }) => {
+const VenuesByIdPage = ({ addToCart }) => {
     const { id } = useParams();  // Get the ID from the route parameters
     const [venue, setVenue] = useState(null);
     const [showForm, setShowForm] = useState(false);  // State to control form visibility
@@ -44,6 +44,7 @@ const VenuesByIdPage = ({ addToCart, userType }) => {
             event_date: formData.date,
             event_time: formData.time,
             event_name: formData.eventName,
+            venue_price: venue.venue_price,  // Ensure you pass the venue price
         };
 
         // Ensure addToCart is defined and correctly handles the venue object
@@ -53,8 +54,8 @@ const VenuesByIdPage = ({ addToCart, userType }) => {
             console.error('addToCart is not a function');
         }
 
-        // Navigate to the cart page
-        navigate('/cart');
+        // Navigate to the orderPage
+        navigate('/rent');
     };
 
     if (!venue) {
@@ -68,7 +69,7 @@ const VenuesByIdPage = ({ addToCart, userType }) => {
                 <h2 className="card-title">{venue.name}</h2>
                 <p className="card-capacity">Capacity: {venue.capacity}</p>
                 <p className="card-address">Address: {venue.address}</p> 
-                <p className="card-address">Venue Price: {venue.venue_price}</p>
+                <p className="card-address">Venue Price: ${venue.venue_price}</p>
                 <div className="button-container">
                     <button className="rent-button" onClick={() => setShowForm(!showForm)}>Rent</button>
                     <Link to="/venues">

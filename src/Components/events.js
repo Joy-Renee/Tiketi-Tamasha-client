@@ -70,7 +70,7 @@ useEffect(() => {
                 <li><Link to="/my-tickets">My Tickets</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
             </ul>
-            <Link to="/cart">
+            <Link to="/order">
                 <button className="cart">Cart</button>
             </Link>
         </nav>
@@ -127,3 +127,4 @@ useEffect(() => {
 }
 
 export default Events
+

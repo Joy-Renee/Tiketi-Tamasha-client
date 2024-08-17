@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import axios from "axios";
-import "../Assets/PaymentPage.css";
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
-const PaymentPage = ({ userId }) => {
+const PaymentsOrganizer = ({ userId }) => {
     const navigate = useNavigate();
     const [phoneNumber, setPhoneNumber] = useState('');
     const [paymentAmount, setPaymentAmount] = useState('');
@@ -13,10 +12,10 @@ const PaymentPage = ({ userId }) => {
         e.preventDefault();
         if (phoneNumber && paymentAmount) {
             try {
-                const response = await axios.post('https://tiketi-tamasha-server.onrender.com/payments', {
+                const response = await axios.post('https://tiketi-tamasha-server.onrender.com/paymentsorganizer', {
                     phone_number: phoneNumber.trim(),
                     amount: paymentAmount,
-                    user_id: userId // Assuming you have the user_id passed as a prop
+                    user_id: userId
                 }, {
                     headers: {
                         'Content-Type': 'application/json',
@@ -44,7 +43,7 @@ const PaymentPage = ({ userId }) => {
         setSummary(null);
         setPhoneNumber('');
         setPaymentAmount('');
-        navigate('/events');
+        navigate('/venues');
     };
 
     return (
@@ -70,4 +69,4 @@ const PaymentPage = ({ userId }) => {
     );
 }
 
-export default PaymentPage;
+export default PaymentsOrganizer;
