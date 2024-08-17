@@ -4,6 +4,7 @@ import "../Assets/PaymentPage.css";
 import { useNavigate } from 'react-router-dom';
 
 function PaymentPage({ summary, onPaymentSuccess, onCancel }) {
+  const navigate = useNavigate();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [paymentAmount, setPaymentAmount] = useState('');
 
@@ -37,7 +38,6 @@ function PaymentPage({ summary, onPaymentSuccess, onCancel }) {
   };
 
   const handleCancel = () => {
-        setSummary(null);
         setPhoneNumber('');
         setPaymentAmount('');
         navigate('/events');
