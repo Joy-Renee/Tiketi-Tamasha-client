@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import "../Assets/PaymentPage.css"; // Ensure you have some basic styling here
+// import "../Assets/PaymentPage.css"; // Ensure you have some basic styling here
 
 function PaymentOrganizer() {
   const [phoneNumber, setPhoneNumber] = useState('');
