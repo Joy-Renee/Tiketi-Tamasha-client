@@ -15,7 +15,7 @@ export const UserProvider = ({children}) => {
     const [authTokenOrganizer, setAuthtokenOrganizer] = useState(()=> localStorage.getItem('token')? localStorage.getItem('token') : null);
 
     const register = (customer_name, email, phone_number, password) => {
-        axios.post('https://tiketi-tamasha-server.onrender.com/customers', {
+        axios.post('http://127.0.0.1:5555/customers', {
             customer_name:customer_name,
             email: email,
             phone_number:phone_number,
@@ -35,7 +35,7 @@ export const UserProvider = ({children}) => {
     };
 
     const registerOrganizer = (organizer_name, email, phone_number, password) => {
-        axios.post('https://tiketi-tamasha-server.onrender.com/organizers', {
+        axios.post('http://127.0.0.1:5555/organizers', {
             organizer_name:organizer_name,
             email: email,
             phone_number:phone_number,
@@ -43,8 +43,8 @@ export const UserProvider = ({children}) => {
         })
         .then(function (response) {
              console.log(response);
-             alert("Successful registration");
-            navigate("/loginOrganizer");
+             alert("Successful registration a confirmation message has been sent to your email");
+            // navigate("/loginOrganizer");
         })
         .catch(function (error) {
             console.log(error, 'error');
