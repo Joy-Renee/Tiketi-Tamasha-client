@@ -8,6 +8,7 @@ const RentPage = ({ cartItems }) => {
     const handleBackClick = () => {
         navigate('/venues');
     };
+
     const calculateSubtotal = (item) => {
         const { venue_price } = item;
         return venue_price;
@@ -20,7 +21,7 @@ const RentPage = ({ cartItems }) => {
     return (
         <div className="cart-page">
             <h1 className="back-arrow" onClick={handleBackClick}>{'<'}</h1>
-            <h1>Your Cart</h1>
+            <h1 className='cart'>Your Cart</h1>
             {cartItems.length === 0 ? (
                 <p>Your cart is empty.</p>
             ) : (
@@ -31,9 +32,11 @@ const RentPage = ({ cartItems }) => {
                             <div key={index} className="cart-item">
                                 <h2>{item.event_name}</h2>
                                 <h5>Venue Name: {item.venue_name}</h5>
-                                <p>Regular Tickets: {item.regular_tickets}</p>
-                                <p>VIP Tickets: {item.vip_tickets}</p>
-                                <p>Early Bird Tickets: {item.early_bird_tickets}</p>
+                                <div className='tickets'>
+                                    <p>Regular Tickets: {item.regular_tickets}</p>
+                                    <p>VIP Tickets: {item.vip_tickets}</p>
+                                    <p>Early Bird Tickets: {item.early_bird_tickets}</p>
+                                </div>
                                 <p>Total Tickets: {totalTickets}</p>
                                 <p>Venue Price: ${item.venue_price}</p>
                             </div>
@@ -41,7 +44,7 @@ const RentPage = ({ cartItems }) => {
                     })}
                     <div className="cart-total">
                         <h3>Total: ${calculateTotal()}</h3>
-                        <Link to="/paymentsorganizer">
+                        <Link to="/paymentsorganizer" state={{ cartItems }}>
                             <button className="checkout-button">Proceed to Checkout</button>
                         </Link>
                     </div>

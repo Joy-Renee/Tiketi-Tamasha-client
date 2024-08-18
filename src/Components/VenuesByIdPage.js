@@ -41,13 +41,15 @@ const VenuesByIdPage = ({ addToCart }) => {
         // Define the venue to rent based on formData
         const venueToRent = {
             venue_name: venue.name,
+            image: formData.imageURL,
+            description: formData.eventDescription,
             regular_tickets: formData.regular,
             vip_tickets: formData.vip,
             early_bird_tickets: formData.earlyBird,
             event_date: formData.date,
-            event_time: formData.time,
+            event_time: formData.timeIn,
             event_name: formData.eventName,
-            venue_price: venue.venue_price,  // Ensure you pass the venue price
+            venue_price: venue.venue_price,
         };
 
         // Ensure addToCart is defined and correctly handles the venue object
@@ -57,8 +59,7 @@ const VenuesByIdPage = ({ addToCart }) => {
             console.error('addToCart is not a function');
         }
 
-        // Navigate to the orderPage
-        navigate('/rent');
+        navigate('/rent', { state: { event: venueToRent } });
     };
 
     if (!venue) {
@@ -100,19 +101,6 @@ const VenuesByIdPage = ({ addToCart }) => {
                                     type="time"
                                     name="timeIn"
                                     value={formData.timeIn}
-                                    onChange={handleInputChange}
-                                    placeholder="Time"
-                                    required
-                                />
-                            </div>
-                        </div>
-
-                        <div className="form-group">
-                            <div className="input-group">
-                                <input
-                                    type="time"
-                                    name="timeOut"
-                                    value={formData.timeOut}
                                     onChange={handleInputChange}
                                     placeholder="Time"
                                     required
