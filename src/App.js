@@ -12,6 +12,9 @@ import Events from './Components/events'
 import Event from './Components/event'
 import LoginOrganizer from './Components/LoginOrganizer'
 import RegisterOrganizer from './Components/RegisterOrganizer'
+import AdminPage from './Components/AdminPage'
+import AdminCustomerView from './Components/AdminCustomerView'
+import EditCustomer from './Components/EditCustomer'
 
 
 function App () {
@@ -35,6 +38,9 @@ function App () {
             <Route path='/:venue/:id' element={<VenuesByIdPage/>}/>
             <Route path='/events' element={<Events/>}/>
             <Route path='/event/:id' element={<Event/>}/>
+            <Route path='/adminpage' element={<AdminPage/>}/>
+            <Route path='/adminCustomer' element={<AdminCustomerView/>}/>
+            <Route path='/update/:id' element={<EditCustomer/>}/>
           </Routes>
           </UserProvider>
         </BrowserRouter>
