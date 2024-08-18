@@ -12,6 +12,7 @@ function Register() {
     const registerUser = () => {
         register(customer_name, email, phone_number, password)
     }
+
      
   return (
     <div>
@@ -29,7 +30,7 @@ function Register() {
                         <label >Email address</label>
                         </div>
                         <div className='input-group'>
-                        <input type="text" value={phone_number} onChange={(e) => setPhone_number(e.target.value)} />
+                        <input type="email" value={phone_number} onChange={(e) => setPhone_number(e.target.value)} />
                         <label >Phone Number</label>
                         </div>
                         <div className='input-group'>

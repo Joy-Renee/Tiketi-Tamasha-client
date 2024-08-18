@@ -132,7 +132,3 @@ body, html {
 .orgLink{
   text-decoration: none; /* Remove underline */
 }
-
-button.cart{
-  width: 150px;
-}
