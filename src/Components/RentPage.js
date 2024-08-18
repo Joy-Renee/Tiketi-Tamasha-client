@@ -30,7 +30,7 @@ const RentPage = ({ cartItems }) => {
                         return (
                             <div key={index} className="cart-item">
                                 <h2>{item.event_name}</h2>
-                                <p>Venue Name: {item.venue_name}</p>
+                                <h5>Venue Name: {item.venue_name}</h5>
                                 <p>Regular Tickets: {item.regular_tickets}</p>
                                 <p>VIP Tickets: {item.vip_tickets}</p>
                                 <p>Early Bird Tickets: {item.early_bird_tickets}</p>

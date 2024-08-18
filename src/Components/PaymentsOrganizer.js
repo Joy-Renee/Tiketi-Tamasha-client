@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import "../Assets/PaymentPage.css"; // Ensure you have some basic styling here
+import "../Assets/PaymentPage.css"; // Ensure you have some basic styling here
+import { useNavigate } from 'react-router-dom';
 
-function PaymentOrganizer() {
+function PaymentsOrganizer() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [paymentAmount, setPaymentAmount] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handlePayment = async (event) => {
     event.preventDefault();
@@ -38,6 +40,12 @@ function PaymentOrganizer() {
     }
   };
 
+  const handleCancel = () => {
+    setPhoneNumber('');
+    setPaymentAmount('');
+    navigate('/venues'); 
+  };
+
   return (
     <div className="payment-page">
       <h1>Payment Page</h1>
@@ -59,9 +67,10 @@ function PaymentOrganizer() {
         <button type="submit" className="submit" disabled={loading}>
           {loading ? 'Processing...' : 'Submit'}
         </button>
+        <button type="button" className="cancel" onClick={handleCancel}>Cancel</button>
       </form>
     </div>
   );
 }
 
-export default PaymentOrganizer;
+export default PaymentsOrganizer;

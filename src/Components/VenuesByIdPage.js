@@ -10,7 +10,10 @@ const VenuesByIdPage = ({ addToCart }) => {
         vip: '',
         earlyBird: '',
         date: '',
-        time: '',
+        timeIn: '',
+        timeOut: '',
+        eventDescription: '',
+        imageURL: '',
         eventName: '',
     });
     const navigate = useNavigate();
@@ -90,18 +93,33 @@ const VenuesByIdPage = ({ addToCart }) => {
                                 />
                             </div>
                         </div>
+
                         <div className="form-group">
                             <div className="input-group">
                                 <input
                                     type="time"
-                                    name="time"
-                                    value={formData.time}
+                                    name="timeIn"
+                                    value={formData.timeIn}
                                     onChange={handleInputChange}
                                     placeholder="Time"
                                     required
                                 />
                             </div>
                         </div>
+
+                        <div className="form-group">
+                            <div className="input-group">
+                                <input
+                                    type="time"
+                                    name="timeOut"
+                                    value={formData.timeOut}
+                                    onChange={handleInputChange}
+                                    placeholder="Time"
+                                    required
+                                />
+                            </div>
+                        </div>
+
                         <div className="form-group">
                             <div className="input-group">
                                 <input
@@ -114,6 +132,33 @@ const VenuesByIdPage = ({ addToCart }) => {
                                 />
                             </div>
                         </div>
+
+                        <div className="form-group">
+                            <div className="input-group">
+                                <input
+                                    type="text"
+                                    name="eventDescription"
+                                    value={formData.eventDescription}
+                                    onChange={handleInputChange}
+                                    placeholder="Event Description"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <div className="input-group">
+                                <input
+                                    type="url"
+                                    name="imageURL"
+                                    value={formData.imageURL}
+                                    onChange={handleInputChange}
+                                    placeholder="Image URL"
+                                    required
+                                />
+                            </div>
+                        </div>
+
                         <div className="form-group">
                             <div className="input-group">
                                 <input
