@@ -103,7 +103,7 @@ function Event({ onAddToCart, availableTickets, updateAvailableTickets, userType
     setTicketQuantities({});
     setTotalPrice(0);
 
-    navigate('/cart');
+    navigate('/order');
   };
 
   const handleTicketChange = (ticketId, e) => {
@@ -220,3 +220,4 @@ function Event({ onAddToCart, availableTickets, updateAvailableTickets, userType
 }
 
 export default Event;
+

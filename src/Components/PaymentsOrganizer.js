@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import "../Assets/PaymentPage.css"; // Ensure you have some basic styling here
+// import "../Assets/PaymentPage.css"; // Ensure you have some basic styling here
 
-function PaymentPage() {
+function PaymentOrganizer() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [paymentAmount, setPaymentAmount] = useState('');
   const [loading, setLoading] = useState(false);
@@ -64,4 +64,4 @@ function PaymentPage() {
   );
 }
 
-export default PaymentPage;
+export default PaymentOrganizer;

@@ -14,7 +14,7 @@ const OrganizersPage = () => {
                 <li><Link to="/services">Services</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
             </ul>
-            <Link to="/cart">
+            <Link to="/rent">
                 <button className="cart">Cart</button>
             </Link>
         </nav>
