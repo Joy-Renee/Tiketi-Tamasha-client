@@ -153,6 +153,7 @@ import LoginOrganizer from './Components/LoginOrganizer';
 import RegisterOrganizer from './Components/RegisterOrganizer';
 import RentPage from './Components/RentPage'; 
 import PaymentsOrganizer from './Components/PaymentsOrganizer';
+import MyTicket from './Components/my-ticket';
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const [availableTickets, setAvailableTickets] = useState({});
@@ -227,6 +228,7 @@ function App() {
               <Route path="/loginOrganizer" element={<LoginOrganizer />} />
               <Route path="/register" element={<Register />} />
               <Route path="/registerOrganizer" element={<RegisterOrganizer />} />
+              <Route path="/my-tickets" element={<MyTicket />} />
               <Route path='/venues' element={
               <>
                 <OrganizersPage/>
