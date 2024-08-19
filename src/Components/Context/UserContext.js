@@ -40,8 +40,8 @@ export const UserProvider = ({children}) => {
             })
             .then(function (response) {
                 console.log(response);
-                alert("Successful registration");
-                navigate("/login");
+                alert("Kindly check your email and click the link to Login ");
+                // navigate("/login");
             })
             .catch(function (error) {
                 console.log(error, 'error');
@@ -78,8 +78,8 @@ export const UserProvider = ({children}) => {
             })
             .then(function (response) {
                 console.log(response);
-                alert("Successful registration");
-                navigate("/loginOrganizer");
+                alert("Kindly check your email and click the link to Login");
+                // navigate("/loginOrganizer");
             })
             .catch(function (error) {
                 console.log(error, 'error');
