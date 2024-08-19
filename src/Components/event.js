@@ -130,7 +130,7 @@ function Event({ onAddToCart, availableTickets, updateAvailableTickets, userType
           className="container-fluid d-flex align-items-center justify-content-center"
           style={{
             minHeight: '100vh',
-            backgroundImage: `url('https://i.pinimg.com/originals/98/ed/ff/98edff9ceeaa334bd0f0f2e7e637901a.jpg')`,
+            // backgroundImage: `url('https://i.pinimg.com/originals/98/ed/ff/98edff9ceeaa334bd0f0f2e7e637901a.jpg')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',

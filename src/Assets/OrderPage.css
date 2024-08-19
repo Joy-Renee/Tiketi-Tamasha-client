@@ -1,91 +1,116 @@
-/* body {
-  margin: 0;
-  height: 100%;
-  background-color: black; 
-} */
-body {
-  margin: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: #000000; /* Dark background for the entire page */
-  color: #f0f0f0; /* Light text for better contrast */
-}
-
 .cart-container {
-  font-family: 'Sulphur Point', sans-serif;
-  color: #c00;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   padding: 20px;
-  position: relative;
-  height: 100vh; 
-  background-color: white; 
+  background-color: #070000;
+  min-height: 100vh;
 }
 
 .order-section {
-  margin-bottom: 30px;
+  background-color: rgb(151, 43, 43);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .back-arrow {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 2em;
+  color: red;
   cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }
 
 .cart-title {
+  font-size: 2em;
   text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
+  color: black;
 }
 
 .order-title {
-  font-size: 18px;
+  font-size: 1.5em;
+  text-align: center;
+  margin: 20px 0;
+  color: #050505;
+}
+
+.order-summary {
+  margin-bottom: 20px;
+}
+
+.order-item {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.order-item p {
+  margin: 5px 0;
+}
+
+.order-item input {
+  width: 60px;
+  padding: 5px;
+  margin-left: 10px;
+  font-size: 1em;
 }
 
 .dashed-line {
   border: none;
-  border-top: 2px dashed black;
+  border-top: 1px dashed #ddd;
   margin: 10px 0;
 }
 
-.order-item {
-  font-size: 16px;
-  line-height: 1.5;
-  margin-bottom: 10px;
-}
-
-.total-section {
-  font-size: 18px;
-  margin-top: 10px;
-}
-
-.red-wave {
-  width: 0;
-  height: 0;
-  /* border-bottom: 60vh solid #c00; */
-  border-left: 60vw solid transparent;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+h3 {
+  text-align: center;
+  margin: 20px 0;
+  color: black;
 }
 
 .checkout-button {
-  background-color: #f2f2f2; 
+  display: block;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2em;
+  color: white;
+  background-color: red;
   border: none;
-  border-radius: 25px;
-  padding: 10px 20px;
-  font-size: 18px;
+  border-radius: 5px;
   cursor: pointer;
-  color: black;
-  position: fixed;
-  bottom: 20px;
-  left: 80%;
-  transform: translateX(-50%);
-  width: 200px;
-  margin-bottom: 20px;
-  height: 80px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .checkout-button:hover {
-  background-color: #e0e0e0;
+  background-color: darkred;
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .back-arrow {
+      font-size: 1.5em;
+  }
+
+  .cart-title {
+      font-size: 1.5em;
+  }
+
+  .order-title {
+      font-size: 1.2em;
+  }
+
+  .order-item input {
+      width: 50px;
+  }
+
+  .checkout-button {
+      font-size: 1em;
+      padding: 12px;
+  }
 }
