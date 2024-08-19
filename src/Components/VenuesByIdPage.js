@@ -6,15 +6,16 @@ const VenuesByIdPage = ({ addToCart }) => {
     const [venue, setVenue] = useState(null);
     const [showForm, setShowForm] = useState(false);  // State to control form visibility
     const [formData, setFormData] = useState({
-        regular: '',
-        vip: '',
-        earlyBird: '',
+        eventName: '',
         date: '',
         timeIn: '',
-        timeOut: '',
         eventDescription: '',
         imageURL: '',
-        eventName: '',
+        tickets: {
+            earlyBird: { price: '', available: '' },
+            regular: { price: '', available: '' },
+            vip: { price: '', available: '' }
+        }
     });
     const navigate = useNavigate();
 
@@ -34,21 +35,33 @@ const VenuesByIdPage = ({ addToCart }) => {
         });
     };
 
+    const handleTicketChange = (e, ticketType) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            tickets: {
+                ...formData.tickets,
+                [ticketType]: {
+                    ...formData.tickets[ticketType],
+                    [name]: value
+                }
+            }
+        });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Form submitted:', formData);
 
-        // Define the venue to rent based on formData
+        // Define the event object based on formData
         const venueToRent = {
             venue_name: venue.name,
-            image: formData.imageURL,
-            description: formData.eventDescription,
-            regular_tickets: formData.regular,
-            vip_tickets: formData.vip,
-            early_bird_tickets: formData.earlyBird,
+            event_name: formData.eventName,
             event_date: formData.date,
             event_time: formData.timeIn,
-            event_name: formData.eventName,
+            description: formData.eventDescription,
+            image: formData.imageURL,
+            tickets: formData.tickets,
             venue_price: venue.venue_price,
         };
 
@@ -89,7 +102,7 @@ const VenuesByIdPage = ({ addToCart }) => {
                                     name="date"
                                     value={formData.date}
                                     onChange={handleInputChange}
-                                    placeholder="Date"
+                                    placeholder="Event Date"
                                     required
                                 />
                             </div>
@@ -102,7 +115,7 @@ const VenuesByIdPage = ({ addToCart }) => {
                                     name="timeIn"
                                     value={formData.timeIn}
                                     onChange={handleInputChange}
-                                    placeholder="Time"
+                                    placeholder="Event Time"
                                     required
                                 />
                             </div>
@@ -147,51 +160,80 @@ const VenuesByIdPage = ({ addToCart }) => {
                             </div>
                         </div>
 
+                        <h3>Tickets Information</h3>
+
+                        <h4>Early Bird</h4>
                         <div className="form-group">
                             <div className="input-group">
                                 <input
                                     type="number"
-                                    name="regular"
-                                    value={formData.regular}
-                                    onChange={handleInputChange}
-                                    min="0"
-                                    placeholder="Regular Tickets"
+                                    name="price"
+                                    value={formData.tickets.earlyBird.price}
+                                    onChange={(e) => handleTicketChange(e, 'earlyBird')}
+                                    placeholder="Early Bird Price"
+                                    required
+                                />
+                                <input
+                                    type="number"
+                                    name="available"
+                                    value={formData.tickets.earlyBird.available}
+                                    onChange={(e) => handleTicketChange(e, 'earlyBird')}
+                                    placeholder="Early Bird Available"
                                     required
                                 />
                             </div>
                         </div>
+
+                        <h4>Regular</h4>
                         <div className="form-group">
                             <div className="input-group">
                                 <input
                                     type="number"
-                                    name="vip"
-                                    value={formData.vip}
-                                    onChange={handleInputChange}
-                                    min="0"
-                                    placeholder="VIP Tickets"
+                                    name="price"
+                                    value={formData.tickets.regular.price}
+                                    onChange={(e) => handleTicketChange(e, 'regular')}
+                                    placeholder="Regular Price"
+                                    required
+                                />
+                                <input
+                                    type="number"
+                                    name="available"
+                                    value={formData.tickets.regular.available}
+                                    onChange={(e) => handleTicketChange(e, 'regular')}
+                                    placeholder="Regular Available"
                                     required
                                 />
                             </div>
                         </div>
+
+                        <h4>VIP</h4>
                         <div className="form-group">
                             <div className="input-group">
                                 <input
                                     type="number"
-                                    name="earlyBird"
-                                    value={formData.earlyBird}
-                                    onChange={handleInputChange}
-                                    min="0"
-                                    placeholder="Early Bird Tickets"
+                                    name="price"
+                                    value={formData.tickets.vip.price}
+                                    onChange={(e) => handleTicketChange(e, 'vip')}
+                                    placeholder="VIP Price"
+                                    required
+                                />
+                                <input
+                                    type="number"
+                                    name="available"
+                                    value={formData.tickets.vip.available}
+                                    onChange={(e) => handleTicketChange(e, 'vip')}
+                                    placeholder="VIP Available"
                                     required
                                 />
                             </div>
                         </div>
+                       
                         <button type="submit" className="submit-button">Submit</button>
                     </form>
                 )}
             </div>
         </div>
     );
-}
+};
 
 export default VenuesByIdPage;

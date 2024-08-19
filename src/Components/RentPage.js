@@ -27,15 +27,16 @@ const RentPage = ({ cartItems }) => {
             ) : (
                 <div className="cart-items">
                     {cartItems.map((item, index) => {
-                        const totalTickets = Number(item.regular_tickets) + Number(item.vip_tickets) + Number(item.early_bird_tickets);
+                        const { earlyBird, regular, vip } = item.tickets || {};
+                        const totalTickets = Number(regular?.available || 0) + Number(vip?.available || 0) + Number(earlyBird?.available || 0);
                         return (
                             <div key={index} className="cart-item">
                                 <h2>{item.event_name}</h2>
                                 <h5>Venue Name: {item.venue_name}</h5>
                                 <div className='tickets'>
-                                    <p>Regular Tickets: {item.regular_tickets}</p>
-                                    <p>VIP Tickets: {item.vip_tickets}</p>
-                                    <p>Early Bird Tickets: {item.early_bird_tickets}</p>
+                                    <p>Regular Tickets: {regular?.available || 0}</p>
+                                    <p>VIP Tickets: {vip?.available || 0}</p>
+                                    <p>Early Bird Tickets: {earlyBird?.available || 0}</p>
                                 </div>
                                 <p>Total Tickets: {totalTickets}</p>
                                 <p>Venue Price: ${item.venue_price}</p>
@@ -53,5 +54,6 @@ const RentPage = ({ cartItems }) => {
         </div>
     );
 };
+
 
 export default RentPage;

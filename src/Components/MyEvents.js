@@ -6,10 +6,8 @@ const MyEvents = () => {
 
   useEffect(() => {
     // Retrieve events from localStorage
-    const storedEvents = localStorage.getItem('myEvents');
-    if (storedEvents) {
-      setEvents(JSON.parse(storedEvents));
-    }
+    const storedEvents = JSON.parse(localStorage.getItem('myEvents')) || [];
+    setEvents(storedEvents);
   }, []);
 
   const handleDelete = (index) => {
