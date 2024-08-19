@@ -69,7 +69,7 @@ const VenuesByIdPage = ({ addToCart }) => {
 
         // Ensure addToCart is defined and correctly handles the event object
         if (typeof addToCart === 'function') {
-            addToCart(eventToCreate);
+            addToCart(venueToRent);
         } else {
             console.error('addToCart is not a function');
         }
