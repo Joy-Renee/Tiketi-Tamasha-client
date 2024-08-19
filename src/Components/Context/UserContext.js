@@ -15,6 +15,7 @@ export const UserProvider = ({children}) => {
     const [authTokenOrganizer, setAuthtokenOrganizer] = useState(()=> localStorage.getItem('token')? localStorage.getItem('token') : null);
 
     const register = (customer_name, email, phone_number, password) => {
+
         if(customer_name.length === 0){
             alert("Enter your name!");
           }
@@ -87,6 +88,7 @@ export const UserProvider = ({children}) => {
                 }
             });
         }
+
     };
 
     const logIn = (email, password) => {

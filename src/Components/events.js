@@ -1,14 +1,11 @@
 import { Link, useOutletContext } from "react-router-dom";
 import { useState, useEffect } from "react";
 import '../Assets/events.css'
-// import Navbar from "./navbar";
 
-
-function Events(){
-  const [data, setData] = useState([])
+function Events() {
+  const [data, setData] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [search, setSearch] = useState("");
-
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -22,27 +19,29 @@ function Events(){
         eventElement.scrollIntoView({ behavior: "smooth" });
       }, 100);
     } else {
-      console.error("Element with ID 'packages' not found.");
+      console.error("Element with ID 'events' not found.");
     }
   }
-  
 
-
-
-  useEffect(()=>{
+  useEffect(() => {
     fetch("https://tiketi-tamasha-server.onrender.com/events")
-    .then((res)=>res.json())
-    .then((data)=>setData(data))
-}, [])
-useEffect(() => {
-  const filterList = () => {
-    const keywords = search.toLowerCase().split(" ");
-    const filteredList = data.filter((event) => {
-      return keywords.every((keyword) => {
-        return (
-          event.event_name.toLowerCase().includes(keyword)
-        );
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, []);
+
+  useEffect(() => {
+    const filterList = () => {
+      const keywords = search.toLowerCase().split(" ");
+      const filteredList = data.filter((event) => {
+        const eventName = event.event_name.toLowerCase();
+        const eventAddress = event.venue ? event.venue.address.toLowerCase() : "";
+        const eventVenue = event.venue ? event.venue.name.toLowerCase() : "";
+
+        return keywords.every((keyword) => {
+          return eventName.includes(keyword) || eventAddress.includes(keyword) || eventVenue.includes(keyword);
+        });
       });
+
     });
     setFilteredList(filteredList);
   };
@@ -90,16 +89,18 @@ useEffect(() => {
               {/* <button className="btn btn-outline-dark btn-sm m-2" type="submit">Search</button> */}
             {/* </div> */}
           </form>
+
       <div
-      style={{
-        minHeight: "100vh",
-        backgroundImage: `url('https://i.pinimg.com/originals/02/fb/32/02fb32678c8a32707c52084c315dc5e9.jpg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed',
-        backgroundColor: '#f5f5dc' 
-    }}>
+        style={{
+          minHeight: "100vh",
+          backgroundImage: `url('https://i.pinimg.com/originals/02/fb/32/02fb32678c8a32707c52084c315dc5e9.jpg')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed',
+          backgroundColor: '#f5f5dc'
+        }}
+      >
         <div className="container p-3 card-container">
             <div className="row">
           {/* {filteredList.map((event) => ( */}
@@ -158,6 +159,7 @@ useEffect(() => {
     function changePage(id){
       setCurrentPage(id)
     }
+
 }
 
-export default Events
+export default Events;

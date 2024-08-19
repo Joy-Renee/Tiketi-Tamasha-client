@@ -23,7 +23,7 @@ function RegisterOrganizer() {
                         <h2>Register Organizer</h2>
                         <div className='input-group'>
                         <input type="text" value={organizer_name} onChange={(e) => setorganizer_name(e.target.value)} />
-                        <label >Customer Name</label>
+                        <label >Organizer's Name</label>
                         </div>
                         <div className='input-group'>
                         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}  />

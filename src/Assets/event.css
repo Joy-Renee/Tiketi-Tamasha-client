@@ -58,3 +58,7 @@
     color: #fff; /* White text on hover */
     transform: scale(1.05); /* Slightly enlarge on hover */
   }
+
+  button.cart{
+    width: 50px;
+  }
