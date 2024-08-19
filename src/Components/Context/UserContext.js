@@ -196,27 +196,27 @@ export const UserProvider = ({children}) => {
         }
       }, [authToken])
 
-    useEffect(() => {
-        if(authTokenOrganizer){
-            fetch('https://tiketi-tamasha-server.onrender.com/current_organizer', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    "Authorization": `Bearer ${authTokenOrganizer}`
-                }
+    // useEffect(() => {
+    //     if(authTokenOrganizer){
+    //         fetch('https://tiketi-tamasha-server.onrender.com/current_organizer', {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 "Authorization": `Bearer ${authTokenOrganizer}`
+    //             }
             
-            })
-            .then(res => res.json())
-            .then(res => {
-                setCurrentOrganizer(res)
-            })
+    //         })
+    //         .then(res => res.json())
+    //         .then(res => {
+    //             setCurrentOrganizer(res)
+    //         })
     
             
-        }
-        else{
-            setCurrentOrganizer(null)
-        }
-      }, [authTokenOrganizer])
+    //     }
+    //     else{
+    //         setCurrentOrganizer(null)
+    //     }
+    //   }, [authTokenOrganizer])
 
     const contextData = {
         currentUser,

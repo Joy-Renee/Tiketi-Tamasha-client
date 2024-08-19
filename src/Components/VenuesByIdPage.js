@@ -6,15 +6,16 @@ const VenuesByIdPage = ({ addToCart }) => {
     const [venue, setVenue] = useState(null);
     const [showForm, setShowForm] = useState(false);  // State to control form visibility
     const [formData, setFormData] = useState({
-        event_name: '',
-        event_date: '',
-        description: '',
-        event_time: '',
-        image: '',
+
+        eventName: '',
+        date: '',
+        timeIn: '',
+        eventDescription: '',
+        imageURL: '',
         tickets: {
-            early_bird: { ticket_price: '', available: '' },
-            regular: { ticket_price: '', available: '' },
-            vip: { ticket_price: '', available: '' }
+            earlyBird: { price: '', available: '' },
+            regular: { price: '', available: '' },
+            vip: { price: '', available: '' }
         }
     });
     const navigate = useNavigate();
@@ -54,13 +55,16 @@ const VenuesByIdPage = ({ addToCart }) => {
         console.log('Form submitted:', formData);
 
         // Define the event object based on formData
-        const eventToCreate = {
-            event_name: formData.event_name,
-            event_date: formData.event_date,
-            description: formData.description,
-            event_time: formData.event_time,
-            image: formData.image,
-            tickets: formData.tickets
+        const venueToRent = {
+            venue_name: venue.name,
+            event_name: formData.eventName,
+            event_date: formData.date,
+            event_time: formData.timeIn,
+            description: formData.eventDescription,
+            image: formData.imageURL,
+            tickets: formData.tickets,
+            venue_price: venue.venue_price,
+
         };
 
         // Ensure addToCart is defined and correctly handles the event object
@@ -70,7 +74,9 @@ const VenuesByIdPage = ({ addToCart }) => {
             console.error('addToCart is not a function');
         }
 
-        navigate('/rent', { state: { event: eventToCreate } });
+
+        navigate('/rent', { state: { event: venueToRent } });
+
     };
 
     if (!venue) {
@@ -110,8 +116,8 @@ const VenuesByIdPage = ({ addToCart }) => {
                             <div className="input-group">
                                 <input
                                     type="time"
-                                    name="event_time"
-                                    value={formData.event_time}
+                                    name="timeIn"
+                                    value={formData.timeIn}
                                     onChange={handleInputChange}
                                     placeholder="Event Time"
                                     required
@@ -136,8 +142,8 @@ const VenuesByIdPage = ({ addToCart }) => {
                             <div className="input-group">
                                 <input
                                     type="text"
-                                    name="description"
-                                    value={formData.description}
+                                    name="eventDescription"
+                                    value={formData.eventDescription}
                                     onChange={handleInputChange}
                                     placeholder="Event Description"
                                     required
@@ -149,8 +155,8 @@ const VenuesByIdPage = ({ addToCart }) => {
                             <div className="input-group">
                                 <input
                                     type="url"
-                                    name="image"
-                                    value={formData.image}
+                                    name="imageURL"
+                                    value={formData.imageURL}
                                     onChange={handleInputChange}
                                     placeholder="Image URL"
                                     required
@@ -165,17 +171,17 @@ const VenuesByIdPage = ({ addToCart }) => {
                             <div className="input-group">
                                 <input
                                     type="number"
-                                    name="ticket_price"
-                                    value={formData.tickets.early_bird.ticket_price}
-                                    onChange={(e) => handleTicketChange(e, 'early_bird')}
+                                    name="price"
+                                    value={formData.tickets.earlyBird.price}
+                                    onChange={(e) => handleTicketChange(e, 'earlyBird')}
                                     placeholder="Early Bird Price"
                                     required
                                 />
                                 <input
                                     type="number"
                                     name="available"
-                                    value={formData.tickets.early_bird.available}
-                                    onChange={(e) => handleTicketChange(e, 'early_bird')}
+                                    value={formData.tickets.earlyBird.available}
+                                    onChange={(e) => handleTicketChange(e, 'earlyBird')}
                                     placeholder="Early Bird Available"
                                     required
                                 />
@@ -187,8 +193,8 @@ const VenuesByIdPage = ({ addToCart }) => {
                             <div className="input-group">
                                 <input
                                     type="number"
-                                    name="ticket_price"
-                                    value={formData.tickets.regular.ticket_price}
+                                    name="price"
+                                    value={formData.tickets.regular.price}
                                     onChange={(e) => handleTicketChange(e, 'regular')}
                                     placeholder="Regular Price"
                                     required
@@ -209,8 +215,8 @@ const VenuesByIdPage = ({ addToCart }) => {
                             <div className="input-group">
                                 <input
                                     type="number"
-                                    name="ticket_price"
-                                    value={formData.tickets.vip.ticket_price}
+                                    name="price"
+                                    value={formData.tickets.vip.price}
                                     onChange={(e) => handleTicketChange(e, 'vip')}
                                     placeholder="VIP Price"
                                     required
@@ -225,7 +231,8 @@ const VenuesByIdPage = ({ addToCart }) => {
                                 />
                             </div>
                         </div>
-                        
+
+                       
                         <button type="submit" className="submit-button">Submit</button>
                     </form>
                 )}

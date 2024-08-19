@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../Assets/PaymentPage.css";
+=======
+
+
 
 function PaymentPage() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [paymentAmount, setPaymentAmount] = useState('');
-  const [loading, setLoading] = useState(false);
-  
+  const [loading, setLoading] = useState(false); 
   const location = useLocation();
   const { cartItems } = location.state || { cartItems: [] };  // Get cartItems from state
   const navigate = useNavigate();
@@ -44,6 +46,12 @@ function PaymentPage() {
     }
   };
 
+  const handleCancel = () => {
+    setPhoneNumber('');
+    setPaymentAmount('');
+    navigate('/events'); // Added this line here to navigate after canceling
+  };
+
   return (
     <div className="payment-page">
       <h1>Payment Page</h1>
@@ -65,6 +73,7 @@ function PaymentPage() {
         <button type="submit" className="submit" disabled={loading}>
           {loading ? 'Processing...' : 'Submit'}
         </button>
+        <button type="button" className="cancel" onClick={handleCancel}>Cancel</button>
       </form>
     </div>
   );
