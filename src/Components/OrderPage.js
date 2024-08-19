@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../Assets/OrderPage.css';
 
 const OrderPage = ({ cartItems = [], updateCartItems, updateAvailableTickets }) => { 
@@ -37,6 +37,11 @@ const OrderPage = ({ cartItems = [], updateCartItems, updateAvailableTickets }) 
     }
   };
 
+  // Proceed to payment with cartItems
+  const handleCheckout = () => {
+    navigate('/payments', { state: { cartItems } });  // Pass cartItems as state
+  };
+
   return (
     <div className="cart-container">
       <div className="order-section">
@@ -63,9 +68,9 @@ const OrderPage = ({ cartItems = [], updateCartItems, updateAvailableTickets }) 
           ))}
         </div>
         <h3>Total: ${total.toFixed(2)}</h3>
-        <Link to="/payments">
-          <button className="checkout-button">Proceed to Checkout</button>
-        </Link>
+        <button onClick={handleCheckout} className="checkout-button">
+          Proceed to Checkout
+        </button>
       </div>
     </div>
   );
