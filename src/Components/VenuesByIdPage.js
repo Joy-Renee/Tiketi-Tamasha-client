@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import '../Assets/VenuesPage.css';
 
 const VenuesByIdPage = ({ addToCart }) => {
     const { id } = useParams();  // Get the ID from the route parameters
@@ -129,8 +130,8 @@ const VenuesByIdPage = ({ addToCart }) => {
                             <div className="input-group">
                                 <input
                                     type="text"
-                                    name="event_name"
-                                    value={formData.event_name}
+                                    name="eventName"
+                                    value={formData.eventName}
                                     onChange={handleInputChange}
                                     placeholder="Event Name"
                                     required

@@ -1,14 +1,18 @@
 .landing-container {
     background-image: url('https://th.bing.com/th/id/R.3aa18b23e53ac0cfd54a73bca76bfce7?rik=CJQpUXdw9CqBkg&riu=http%3a%2f%2fkissjonesboro.com%2fwp-content%2fuploads%2fsites%2f149%2fconcert-red-background.jpg&ehk=qbDuOhkfaPunjdpYnoNRSbSm1sFI0SegOIh4cqeT710%3d&risl=&pid=ImgRaw&r=0');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
+    background-size: cover; /* Ensures the image covers the container */
+    background-position: center center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-attachment: scroll; /* Ensures the image scrolls with the page content */
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     text-align: center;
     color: white;
+    overflow: hidden; /* Ensures no overflow from the background image */
 }
 
 /* Overlay */
