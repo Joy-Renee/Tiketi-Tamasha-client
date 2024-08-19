@@ -7,7 +7,9 @@ import "../Assets/PaymentPage.css";
 function PaymentPage() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [paymentAmount, setPaymentAmount] = useState('');
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
+  
+
   const location = useLocation();
   const { cartItems } = location.state || { cartItems: [] };  // Get cartItems from state
   const navigate = useNavigate();
