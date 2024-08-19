@@ -251,7 +251,7 @@ function App () {
       <div className='container'>
         <h1 className='page-header text-center'>Ticketi Tamasha</h1>
 
-        <BrowserRouter>
+        <Router>
         <UserProvider>
           <Routes>
             <Route path="/" element={<LoginPage/>} />
@@ -260,7 +260,6 @@ function App () {
             <Route path="/register" element={<Register/>} />
             <Route path="/registerOrganizer" element={<RegisterOrganizer/>} />
              <Route path="/my-tickets" element={<MyTicket />} />
-            <Route path="/test" element={<MyTickects/>} />
             <Route path="/viewcustomers" element={<AdminCustomerView/>} />
             <Route path="/admin" element={<AdminPage/>} />
             <Route path="/editcustomer" element={<EditCustomer/>} />
@@ -312,7 +311,7 @@ function App () {
               <Route path="/myevents" element={<MyEvents />} />
             </Routes>
           </UserProvider>
-        </BrowserRouter>
+        </Router>
       </div>
     </div>
   );
