@@ -8,6 +8,7 @@ const RentPage = ({ cartItems }) => {
     const handleBackClick = () => {
         navigate('/venues');
     };
+
     const calculateSubtotal = (item) => {
         const { venue_price } = item;
         return venue_price;
@@ -20,20 +21,23 @@ const RentPage = ({ cartItems }) => {
     return (
         <div className="cart-page">
             <h1 className="back-arrow" onClick={handleBackClick}>{'<'}</h1>
-            <h1>Your Cart</h1>
+            <h1 className='cart'>Your Cart</h1>
             {cartItems.length === 0 ? (
                 <p>Your cart is empty.</p>
             ) : (
                 <div className="cart-items">
                     {cartItems.map((item, index) => {
-                        const totalTickets = Number(item.regular_tickets) + Number(item.vip_tickets) + Number(item.early_bird_tickets);
+                        const { earlyBird, regular, vip } = item.tickets || {};
+                        const totalTickets = Number(regular?.available || 0) + Number(vip?.available || 0) + Number(earlyBird?.available || 0);
                         return (
                             <div key={index} className="cart-item">
                                 <h2>{item.event_name}</h2>
-                                <p>Venue Name: {item.venue_name}</p>
-                                <p>Regular Tickets: {item.regular_tickets}</p>
-                                <p>VIP Tickets: {item.vip_tickets}</p>
-                                <p>Early Bird Tickets: {item.early_bird_tickets}</p>
+                                <h5>Venue Name: {item.venue_name}</h5>
+                                <div className='tickets'>
+                                    <p>Regular Tickets: {regular?.available || 0}</p>
+                                    <p>VIP Tickets: {vip?.available || 0}</p>
+                                    <p>Early Bird Tickets: {earlyBird?.available || 0}</p>
+                                </div>
                                 <p>Total Tickets: {totalTickets}</p>
                                 <p>Venue Price: ${item.venue_price}</p>
                             </div>
@@ -41,7 +45,7 @@ const RentPage = ({ cartItems }) => {
                     })}
                     <div className="cart-total">
                         <h3>Total: ${calculateTotal()}</h3>
-                        <Link to="/paymentsorganizer">
+                        <Link to="/paymentsorganizer" state={{ cartItems }}>
                             <button className="checkout-button">Proceed to Checkout</button>
                         </Link>
                     </div>
@@ -50,5 +54,6 @@ const RentPage = ({ cartItems }) => {
         </div>
     );
 };
+
 
 export default RentPage;

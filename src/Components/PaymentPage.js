@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import "../Assets/PaymentPage.css"; // Ensure you have some basic styling here
+import "../Assets/PaymentPage.css";
+
 
 function PaymentPage() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [paymentAmount, setPaymentAmount] = useState('');
   const [loading, setLoading] = useState(false);
+  
+
+  const location = useLocation();
+  const { cartItems } = location.state || { cartItems: [] };  // Get cartItems from state
+  const navigate = useNavigate();
 
   const handlePayment = async (event) => {
     event.preventDefault();
@@ -24,6 +31,7 @@ function PaymentPage() {
 
         if (response.data.CheckoutRequestID) {
           alert('Payment request sent successfully! Please check your phone to complete the payment.');
+          navigate('/my-tickets', { state: { paymentSuccess: true, cartItems } });  // Redirect to MyTicket with cartItems
         } else {
           alert('Payment initiation failed. Please try again.');
         }
@@ -36,6 +44,12 @@ function PaymentPage() {
     } else {
       alert('Please enter both phone number and payment amount.');
     }
+  };
+
+  const handleCancel = () => {
+    setPhoneNumber('');
+    setPaymentAmount('');
+    navigate('/events'); // Added this line here to navigate after canceling
   };
 
   return (
@@ -59,6 +73,7 @@ function PaymentPage() {
         <button type="submit" className="submit" disabled={loading}>
           {loading ? 'Processing...' : 'Submit'}
         </button>
+        <button type="button" className="cancel" onClick={handleCancel}>Cancel</button>
       </form>
     </div>
   );
