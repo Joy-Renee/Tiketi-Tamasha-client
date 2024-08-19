@@ -24,7 +24,7 @@ function Events() {
   }
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5555/events")
+    fetch("https://tiketi-tamasha-server.onrender.com/customers")
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);
