@@ -153,6 +153,7 @@ import LoginOrganizer from './Components/LoginOrganizer';
 import RegisterOrganizer from './Components/RegisterOrganizer';
 import RentPage from './Components/RentPage'; 
 import PaymentsOrganizer from './Components/PaymentsOrganizer';
+import MyEvents from './Components/MyEvents';
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const [availableTickets, setAvailableTickets] = useState({});
@@ -271,6 +272,7 @@ function App() {
               />
               <Route path="/payments" element={<PaymentPage />} />
               <Route path="/paymentsorganizer" element={<PaymentsOrganizer />} />
+              <Route path="/myevents" element={<MyEvents />} />
             </Routes>
           </UserProvider>
         </Router>

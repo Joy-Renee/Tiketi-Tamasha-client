@@ -12,6 +12,7 @@ const OrganizersPage = () => {
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">About</Link></li>
                 <li><Link to="/services">Services</Link></li>
+                <li><Link to="/myevents">My Events</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
             </ul>
             <Link to="/rent">
