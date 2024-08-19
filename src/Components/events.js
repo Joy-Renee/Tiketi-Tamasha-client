@@ -24,7 +24,7 @@ function Events() {
   }
 
   useEffect(() => {
-    fetch("https://tiketi-tamasha-server.onrender.com/customers")
+    fetch("https://tiketi-tamasha-server.onrender.com/events")
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);
