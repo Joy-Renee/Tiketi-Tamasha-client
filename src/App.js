@@ -1,3 +1,28 @@
+// import React, { useContext, useEffect } from 'react'
+// import { UserContext } from './Context/UserContext'
+
+// function MyTickects() {
+//     const {currentUser} =useContext(UserContext)
+//     const current_user = currentUser
+    
+//     useEffect(() => {
+//         fetchData()
+//     }, [])
+
+//     function fetchData(){
+//         fetch(`http://127.0.0.1:5555/booking/${current_user.id}`)
+//             .then(response => response.json())
+//             .then((data) => {
+//                 console.log(data)
+//             })
+//     }
+//   return (
+//     <div>MyTickects</div>
+//   )
+// }
+
+// export default MyTickects
+
 // import './App.css';
 // import React, { useState } from 'react';
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -155,9 +180,12 @@ import RentPage from './Components/RentPage';
 import PaymentsOrganizer from './Components/PaymentsOrganizer';
 import MyTicket from './Components/my-ticket';
 import MyEvents from './Components/MyEvents';
+import AdminCustomerView from './Components/AdminCustomerView'
+import AdminPage from './Components/AdminPage'
+import EditCustomer from './Components/EditCustomer'
 
-function App() {
-  const [cartItems, setCartItems] = useState([]);
+function App () {
+    const [cartItems, setCartItems] = useState([]);
   const [availableTickets, setAvailableTickets] = useState({});
   const [userType, setUserType] = useState('customer'); // Default to customer
 
@@ -217,27 +245,6 @@ function App() {
       return updatedTickets;
     });
   };
-
-import './App.css'
-import React, { } from 'react'
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import LoginPage from './Components/LoginPage'
-import LoginForm from './Components/LoginForm'
-import Register from './Components/Register'
-import {OrganizersPage, Card} from './Components/OrganizersPage'
-import VenuesByIdPage from './Components/VenuesByIdPage'
-import { UserProvider } from './Components/Context/UserContext'
-import Events from './Components/events'
-import Event from './Components/event'
-import LoginOrganizer from './Components/LoginOrganizer'
-import RegisterOrganizer from './Components/RegisterOrganizer'
-import MyTickects from './Components/MyTickects'
-import AdminCustomerView from './Components/AdminCustomerView'
-import AdminPage from './Components/AdminPage'
-import EditCustomer from './Components/EditCustomer'
-
-
-function App () {
 
   return (
     <div className='vh-100 gradient-custom'>
@@ -305,7 +312,7 @@ function App () {
               <Route path="/myevents" element={<MyEvents />} />
             </Routes>
           </UserProvider>
-        </Router>
+        </BrowserRouter>
       </div>
     </div>
   );
