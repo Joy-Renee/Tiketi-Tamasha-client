@@ -55,7 +55,13 @@ useEffect(() => {
   return () => clearTimeout(delaySearch);
 }, [search, data]);
 
-    
+  const [currentPage, setCurrentPage] = useState(1)
+  const recordsPage = 3;
+  const lastIndex = currentPage*recordsPage;
+  const firstIndex = lastIndex - recordsPage;
+  const records = filteredList.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(filteredList.length/recordsPage)
+  const numbers = [...Array(npage + 1).keys()].slice(1)
 
     return(
       <div>
@@ -96,7 +102,8 @@ useEffect(() => {
     }}>
         <div className="container p-3 card-container">
             <div className="row">
-          {filteredList.map((event) => (
+          {/* {filteredList.map((event) => ( */}
+          {records.map((event) => (
              <div className="col-sm-4 mb-2 mx-auto event-card" key={event.id} id="events">
                <div className="card">
                <Link to={`/event/${event.id}`}>
@@ -119,8 +126,38 @@ useEffect(() => {
 
         </div>
         </div>
+        
+          <ul className="pagination">
+            <li className="page-item">
+              <a href="#" className="page-link" onClick={prePage}>Prev</a>
+            </li>
+            {
+              numbers.map((n, i) => (
+                <li className={`page-item ${currentPage === n ? 'active':''}`} key={i}>
+                  <a href="#" className="page-link" onClick={()=>changePage(n)}>{n}</a>
+                </li>
+              ))
+            }
+            <li className="page-item">
+              <a href="#" className="page-link" onClick={nextPage}>Next</a>
+            </li>
+          </ul>
+        
         </div>
     )
+    function nextPage(){
+      if(currentPage !== npage){
+        setCurrentPage(currentPage + 1)
+      }
+    }
+    function prePage(){
+      if(currentPage !== 1){
+        setCurrentPage(currentPage - 1)
+      }
+    }
+    function changePage(id){
+      setCurrentPage(id)
+    }
 }
 
 export default Events

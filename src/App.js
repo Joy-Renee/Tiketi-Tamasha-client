@@ -12,6 +12,10 @@ import Events from './Components/events'
 import Event from './Components/event'
 import LoginOrganizer from './Components/LoginOrganizer'
 import RegisterOrganizer from './Components/RegisterOrganizer'
+import MyTickects from './Components/MyTickects'
+import AdminCustomerView from './Components/AdminCustomerView'
+import AdminPage from './Components/AdminPage'
+import EditCustomer from './Components/EditCustomer'
 
 
 function App () {
@@ -27,6 +31,10 @@ function App () {
             <Route path="/loginOrganizer" element={<LoginOrganizer/>} />
             <Route path="/register" element={<Register/>} />
             <Route path="/registerOrganizer" element={<RegisterOrganizer/>} />
+            <Route path="/test" element={<MyTickects/>} />
+            <Route path="/viewcustomers" element={<AdminCustomerView/>} />
+            <Route path="/admin" element={<AdminPage/>} />
+            <Route path="/editcustomer" element={<EditCustomer/>} />
             <Route path='/venues' element={
               <>
                 <OrganizersPage/>
