@@ -41,11 +41,8 @@ function Events() {
           return eventName.includes(keyword) || eventAddress.includes(keyword) || eventVenue.includes(keyword);
         });
       });
-
-    });
-    setFilteredList(filteredList);
-  };
-
+      setFilteredList(filteredList);
+    };
 
   const delaySearch = setTimeout(() => {
     filterList();
