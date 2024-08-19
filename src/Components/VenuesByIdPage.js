@@ -6,6 +6,7 @@ const VenuesByIdPage = ({ addToCart }) => {
     const [venue, setVenue] = useState(null);
     const [showForm, setShowForm] = useState(false);  // State to control form visibility
     const [formData, setFormData] = useState({
+
         eventName: '',
         date: '',
         timeIn: '',
@@ -63,16 +64,19 @@ const VenuesByIdPage = ({ addToCart }) => {
             image: formData.imageURL,
             tickets: formData.tickets,
             venue_price: venue.venue_price,
+
         };
 
-        // Ensure addToCart is defined and correctly handles the venue object
+        // Ensure addToCart is defined and correctly handles the event object
         if (typeof addToCart === 'function') {
             addToCart(venueToRent);
         } else {
             console.error('addToCart is not a function');
         }
 
+
         navigate('/rent', { state: { event: venueToRent } });
+
     };
 
     if (!venue) {
@@ -85,7 +89,7 @@ const VenuesByIdPage = ({ addToCart }) => {
                 <img src={venue.image} alt={venue.name} className="card-image" />
                 <h2 className="card-title">{venue.name}</h2>
                 <p className="card-capacity">Capacity: {venue.capacity}</p>
-                <p className="card-address">Address: {venue.address}</p> 
+                <p className="card-address">Address: {venue.address}</p>
                 <p className="card-address">Venue Price: ${venue.venue_price}</p>
                 <div className="button-container">
                     <button className="rent-button" onClick={() => setShowForm(!showForm)}>Rent</button>
@@ -99,8 +103,8 @@ const VenuesByIdPage = ({ addToCart }) => {
                             <div className="input-group">
                                 <input
                                     type="date"
-                                    name="date"
-                                    value={formData.date}
+                                    name="event_date"
+                                    value={formData.event_date}
                                     onChange={handleInputChange}
                                     placeholder="Event Date"
                                     required
@@ -125,8 +129,8 @@ const VenuesByIdPage = ({ addToCart }) => {
                             <div className="input-group">
                                 <input
                                     type="text"
-                                    name="eventName"
-                                    value={formData.eventName}
+                                    name="event_name"
+                                    value={formData.event_name}
                                     onChange={handleInputChange}
                                     placeholder="Event Name"
                                     required
@@ -227,6 +231,7 @@ const VenuesByIdPage = ({ addToCart }) => {
                                 />
                             </div>
                         </div>
+
                        
                         <button type="submit" className="submit-button">Submit</button>
                     </form>
