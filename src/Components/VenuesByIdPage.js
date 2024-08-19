@@ -1,21 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import '../Assets/VenuesPage.css';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
-const VenuesByIdPage = () => {
+const VenuesByIdPage = ({ addToCart }) => {
     const { id } = useParams();  // Get the ID from the route parameters
     const [venue, setVenue] = useState(null);
     const [showForm, setShowForm] = useState(false);  // State to control form visibility
     const [formData, setFormData] = useState({
-        regular: '',
-        vip: '',
-        // vvips: '',
-        earlyBird: '',
-        // groupTicket: '',
-        date: '',
-        time: '',
         eventName: '',
+        date: '',
+        timeIn: '',
+        eventDescription: '',
+        imageURL: '',
+        tickets: {
+            earlyBird: { price: '', available: '' },
+            regular: { price: '', available: '' },
+            vip: { price: '', available: '' }
+        }
     });
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Fetch data for the specific venue using the ID
@@ -25,10 +27,6 @@ const VenuesByIdPage = () => {
             .catch(error => console.error('Error fetching data:', error));
     }, [id]);
 
-    if (!venue) {
-        return <p>Loading...</p>;
-    }
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -37,11 +35,49 @@ const VenuesByIdPage = () => {
         });
     };
 
+    const handleTicketChange = (e, ticketType) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            tickets: {
+                ...formData.tickets,
+                [ticketType]: {
+                    ...formData.tickets[ticketType],
+                    [name]: value
+                }
+            }
+        });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission logic here
         console.log('Form submitted:', formData);
+
+        // Define the event object based on formData
+        const venueToRent = {
+            venue_name: venue.name,
+            event_name: formData.eventName,
+            event_date: formData.date,
+            event_time: formData.timeIn,
+            description: formData.eventDescription,
+            image: formData.imageURL,
+            tickets: formData.tickets,
+            venue_price: venue.venue_price,
+        };
+
+        // Ensure addToCart is defined and correctly handles the venue object
+        if (typeof addToCart === 'function') {
+            addToCart(venueToRent);
+        } else {
+            console.error('addToCart is not a function');
+        }
+
+        navigate('/rent', { state: { event: venueToRent } });
     };
+
+    if (!venue) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <div className="card-container">
@@ -50,6 +86,7 @@ const VenuesByIdPage = () => {
                 <h2 className="card-title">{venue.name}</h2>
                 <p className="card-capacity">Capacity: {venue.capacity}</p>
                 <p className="card-address">Address: {venue.address}</p> 
+                <p className="card-address">Venue Price: ${venue.venue_price}</p>
                 <div className="button-container">
                     <button className="rent-button" onClick={() => setShowForm(!showForm)}>Rent</button>
                     <Link to="/venues">
@@ -65,113 +102,138 @@ const VenuesByIdPage = () => {
                                     name="date"
                                     value={formData.date}
                                     onChange={handleInputChange}
-                                    placeholder="Date "
+                                    placeholder="Event Date"
                                     required
                                 />
-                                
                             </div>
                         </div>
+
                         <div className="form-group">
                             <div className="input-group">
-                            
                                 <input
                                     type="time"
-                                    name="time"
-                                    value={formData.time}
+                                    name="timeIn"
+                                    value={formData.timeIn}
                                     onChange={handleInputChange}
-                                    placeholder="Time " 
+                                    placeholder="Event Time"
                                     required
                                 />
-                                <label>Time</label>
                             </div>
                         </div>
+
                         <div className="form-group">
                             <div className="input-group">
-                                
                                 <input
                                     type="text"
                                     name="eventName"
                                     value={formData.eventName}
                                     onChange={handleInputChange}
-                                    placeholder="Event Name " // Add a space to ensure the placeholder is not empty
+                                    placeholder="Event Name"
                                     required
                                 />
-                                {/* <label>Event Name:</label> */}
                             </div>
                         </div>
+
+                        <div className="form-group">
+                            <div className="input-group">
+                                <input
+                                    type="text"
+                                    name="eventDescription"
+                                    value={formData.eventDescription}
+                                    onChange={handleInputChange}
+                                    placeholder="Event Description"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <div className="input-group">
+                                <input
+                                    type="url"
+                                    name="imageURL"
+                                    value={formData.imageURL}
+                                    onChange={handleInputChange}
+                                    placeholder="Image URL"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <h3>Tickets Information</h3>
+
+                        <h4>Early Bird</h4>
                         <div className="form-group">
                             <div className="input-group">
                                 <input
                                     type="number"
-                                    name="regular"
-                                    value={formData.regular}
-                                    onChange={handleInputChange}
-                                    min="0"
-                                    placeholder="Regular"
+                                    name="price"
+                                    value={formData.tickets.earlyBird.price}
+                                    onChange={(e) => handleTicketChange(e, 'earlyBird')}
+                                    placeholder="Early Bird Price"
                                     required
-                                    
                                 />
-                                {/* <label>General Admission</label> */}
+                                <input
+                                    type="number"
+                                    name="available"
+                                    value={formData.tickets.earlyBird.available}
+                                    onChange={(e) => handleTicketChange(e, 'earlyBird')}
+                                    placeholder="Early Bird Available"
+                                    required
+                                />
                             </div>
                         </div>
+
+                        <h4>Regular</h4>
                         <div className="form-group">
                             <div className="input-group">
                                 <input
                                     type="number"
-                                    name="vip"
-                                    value={formData.vip}
-                                    onChange={handleInputChange}
-                                    min="0"
-                                    placeholder="VIP Tickets "
+                                    name="price"
+                                    value={formData.tickets.regular.price}
+                                    onChange={(e) => handleTicketChange(e, 'regular')}
+                                    placeholder="Regular Price"
+                                    required
+                                />
+                                <input
+                                    type="number"
+                                    name="available"
+                                    value={formData.tickets.regular.available}
+                                    onChange={(e) => handleTicketChange(e, 'regular')}
+                                    placeholder="Regular Available"
                                     required
                                 />
                             </div>
                         </div>
-                        {/* <div className="form-group">
-                            <div className="input-group">
-                                <input
-                                    type="number"
-                                    name="vvips"
-                                    value={formData.vvips}
-                                    onChange={handleInputChange}
-                                    min="0"
-                                    placeholder="VVIP Tickets "
-                                    required
-                                />                               
-                            </div>
-                        </div> */}
+
+                        <h4>VIP</h4>
                         <div className="form-group">
                             <div className="input-group">
                                 <input
                                     type="number"
-                                    name="earlyBird"
-                                    value={formData.earlyBird}
-                                    onChange={handleInputChange}
-                                    min="0"
-                                    placeholder="Early Bird Tickets "
+                                    name="price"
+                                    value={formData.tickets.vip.price}
+                                    onChange={(e) => handleTicketChange(e, 'vip')}
+                                    placeholder="VIP Price"
+                                    required
+                                />
+                                <input
+                                    type="number"
+                                    name="available"
+                                    value={formData.tickets.vip.available}
+                                    onChange={(e) => handleTicketChange(e, 'vip')}
+                                    placeholder="VIP Available"
                                     required
                                 />
                             </div>
                         </div>
-                        {/* <div className="form-group">
-                            <div className="input-group">
-                                <input
-                                    type="number"
-                                    name="groupTicket"
-                                    value={formData.groupTicket}
-                                    onChange={handleInputChange}
-                                    min="0"
-                                    placeholder="Group Tickets of 5 "
-                                    required
-                                />
-                            </div>
-                        </div> */}
+                       
                         <button type="submit" className="submit-button">Submit</button>
                     </form>
                 )}
             </div>
         </div>
     );
-}
+};
 
 export default VenuesByIdPage;

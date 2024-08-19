@@ -1,0 +1,34 @@
+.checkout-button {
+    background-color: #f2f2f2; 
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    color: black;
+    position: fixed;
+    bottom: 20px;
+    left: 80%;
+    transform: translateX(-50%);
+    width: 200px;
+    margin-bottom: 20px;
+    height: 80px;
+  }
+
+  h2 {
+    text-align: left;
+    color: #c00;
+    border-bottom: #f2f2f2;
+    border-radius: 2px;
+  }
+
+  h1.cart {
+    text-align: center;
+  }
+
+  div.tickets {
+    border-color: #c00;
+    border-style: dotted;
+    border-width: 2px;
+    text-align: center;
+  }
