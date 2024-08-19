@@ -1,3 +1,28 @@
+// import React, { useContext, useEffect } from 'react'
+// import { UserContext } from './Context/UserContext'
+
+// function MyTickects() {
+//     const {currentUser} =useContext(UserContext)
+//     const current_user = currentUser
+    
+//     useEffect(() => {
+//         fetchData()
+//     }, [])
+
+//     function fetchData(){
+//         fetch(`http://127.0.0.1:5555/booking/${current_user.id}`)
+//             .then(response => response.json())
+//             .then((data) => {
+//                 console.log(data)
+//             })
+//     }
+//   return (
+//     <div>MyTickects</div>
+//   )
+// }
+
+// export default MyTickects
+
 // import './App.css';
 // import React, { useState } from 'react';
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -155,9 +180,12 @@ import RentPage from './Components/RentPage';
 import PaymentsOrganizer from './Components/PaymentsOrganizer';
 import MyTicket from './Components/my-ticket';
 import MyEvents from './Components/MyEvents';
+import AdminCustomerView from './Components/AdminCustomerView'
+import AdminPage from './Components/AdminPage'
+import EditCustomer from './Components/EditCustomer'
 
-function App() {
-  const [cartItems, setCartItems] = useState([]);
+function App () {
+    const [cartItems, setCartItems] = useState([]);
   const [availableTickets, setAvailableTickets] = useState({});
   const [userType, setUserType] = useState('customer'); // Default to customer
 
@@ -222,16 +250,21 @@ function App() {
     <div className='vh-100 gradient-custom'>
       <div className='container'>
         <h1 className='page-header text-center'>Ticketi Tamasha</h1>
+
         <Router>
-          <UserProvider>
-            <Routes>
-              <Route path="/" element={<LoginPage setUserType={setUserType} />} />
-              <Route path="/login" element={<LoginForm />} />
-              <Route path="/loginOrganizer" element={<LoginOrganizer />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/registerOrganizer" element={<RegisterOrganizer />} />
-              <Route path="/my-tickets" element={<MyTicket />} />
-              <Route path='/venues' element={
+        <UserProvider>
+          <Routes>
+            <Route path="/" element={<LoginPage/>} />
+            <Route path="/login" element={<LoginForm/>} />
+            <Route path="/loginOrganizer" element={<LoginOrganizer/>} />
+            <Route path="/register" element={<Register/>} />
+            <Route path="/registerOrganizer" element={<RegisterOrganizer/>} />
+             <Route path="/my-tickets" element={<MyTicket />} />
+            <Route path="/viewcustomers" element={<AdminCustomerView/>} />
+            <Route path="/admin" element={<AdminPage/>} />
+            <Route path="/editcustomer" element={<EditCustomer/>} />
+            <Route path='/venues' element={
+
               <>
                 <OrganizersPage/>
                 <Card/>

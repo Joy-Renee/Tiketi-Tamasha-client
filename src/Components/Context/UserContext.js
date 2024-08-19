@@ -15,43 +15,80 @@ export const UserProvider = ({children}) => {
     const [authTokenOrganizer, setAuthtokenOrganizer] = useState(()=> localStorage.getItem('token')? localStorage.getItem('token') : null);
 
     const register = (customer_name, email, phone_number, password) => {
-        axios.post('http://127.0.0.1:5555/customers', {
-            customer_name:customer_name,
-            email: email,
-            phone_number:phone_number,
-            password: password
-        })
-        .then(function (response) {
-             console.log(response);
-             alert("Successful registration and email sent successfull");
-            // navigate("/login");
-        })
-        .catch(function (error) {
-            console.log(error, 'error');
-            if (error.response.status === 401) {
-                alert("Invalid credentials");
-            }
-        });
+
+        if(customer_name.length === 0){
+            alert("Enter your name!");
+          }
+          else if(email.length === 0){
+            alert("please enter your email!");
+          }
+          else if(password.length === 0){
+            alert("please enter your password!");
+          }
+          else if(password.length < 5){
+            alert("please enter a strong password!");
+          }
+          else if(phone_number.length < 10){
+            alert("please enter a  valid phone number!");
+          }
+          else{
+            axios.post('https://tiketi-tamasha-server.onrender.com/customers', {
+                customer_name:customer_name,
+                email: email,
+                phone_number:phone_number,
+                password: password
+            })
+            .then(function (response) {
+                console.log(response);
+                alert("Successful registration");
+                navigate("/login");
+            })
+            .catch(function (error) {
+                console.log(error, 'error');
+                if (error.response.status === 401) {
+                    alert("Invalid credentials");
+                }
+            });
+        }
     };
 
     const registerOrganizer = (organizer_name, email, phone_number, password) => {
-        axios.post('http://127.0.0.1:5555/organizers', {
-            organizer_name:organizer_name,
-            email: email,
-            phone_number:phone_number,
-            password: password
-        })
-        .then(function (response) {
-             console.log(response);
-             alert("Successful registration a confirmation message has been sent to your email");
-            // navigate("/loginOrganizer");
-        })
-        .catch(function (error) {
-            console.log(error, 'error');
-            if (error.response.status === 401) {
-                alert("Invalid credentials");
-            }
-        });
+        if(organizer_name.length === 0){
+            alert("Enter your name!");
+          }
+          else if(email.length === 0){
+            alert("please enter your email!");
+          }
+          else if(password.length === 0){
+            alert("please enter your password!");
+          }
+          else if(password.length < 5){
+            alert("please enter a strong password!");
+          }
+          else if(phone_number.length < 10){
+            alert("please enter a  valid phone number!");
+          }
+          else{
+
+            axios.post('https://tiketi-tamasha-server.onrender.com/organizers', {
+                organizer_name:organizer_name,
+                email: email,
+                phone_number:phone_number,
+                password: password
+            })
+            .then(function (response) {
+                console.log(response);
+                alert("Successful registration");
+                navigate("/loginOrganizer");
+            })
+            .catch(function (error) {
+                console.log(error, 'error');
+                if (error.response.status === 401) {
+                    alert("Invalid credentials");
+                }
+            });
+        }
+
     };
 
     const logIn = (email, password) => {
